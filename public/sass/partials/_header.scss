@@ -15,7 +15,7 @@
     text-align: center;
     justify-content: center;
     align-items: center;
-    padding-top: 20rem;
+    height: 100%;
     h4 {
       margin-bottom: 0;
     }
@@ -35,35 +35,15 @@
       }
     }
   }
+  &__bottom {
+    align-self: center;
+    color: $color__white;
+    display: flex;
+
+  > * {
+    @include text(10,2,$color__secondary--light);
+    font-style: normal;
+    margin: 1.5rem;
+    }
+  }
 }
-
-
-
-
-
-// &__center {
-//   .flex-wrapper {
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: center;
-//     align-items: center;
-//     text-align: center;
-//     h4 {
-//       margin-bottom: 0;
-//     }
-//     .heading__button {
-//       display: flex;
-//       flex-direction: column;
-//       width: 30%;
-//       .button--order {
-//         margin-top: 1rem;
-//         border: 1px solid $color__white;
-//         background-color: transparent;
-//         transition: background-color 1s;
-//         &:hover {
-//           background-color: $color__secondary--light-blue;
-//         }
-//       }
-//     }
-//   }
-// }

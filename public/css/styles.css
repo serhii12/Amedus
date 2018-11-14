@@ -708,7 +708,7 @@ label {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding-top: 20rem;
+  height: 100%;
 }
 
 .main-header__center h4 {
@@ -741,6 +741,26 @@ label {
 
 .main-header__center__order .btn--order:hover {
   background-color: #2e4778;
+}
+
+.main-header__bottom {
+  -ms-flex-item-align: center;
+      align-self: center;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.main-header__bottom > * {
+  font-size: 10px;
+  font-size: 1rem;
+  line-height: 2;
+  color: #f1efe7;
+  font-weight: 400;
+  font-family: "Lato", sans-serif;
+  font-style: normal;
+  margin: 1.5rem;
 }
 
 .nav {
