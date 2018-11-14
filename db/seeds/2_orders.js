@@ -6,23 +6,19 @@ exports.seed = function(knex, Promise) {
         knex('order').insert({
           id: 1,
           phone_number: '6472234590',
-          order_date: "11-11-2018",
           status: "complete" }),
         knex('order').insert({
           id: 2,
           phone_number: '6472234590',
-          order_date: "11-11-2018",
           status: "complete" }),
         knex('order').insert({
           id: 3,
           phone_number: '6472234590',
-          order_date: "11-11-2018",
           status: "complete" }),
         knex('order').insert({
           id: 4,
           phone_number: '6472234590',
-          order_date: "11-11-2018",
-          status: "complete" }),
+          status: "complete" })
       ])
     );
 };

@@ -5,15 +5,14 @@ exports.up = async function(knex, Promise) {
       table.increments('id').unsigned().primary();
       table.text('name');
       table.text('description');
-      table.integer('price');
+      table.decimal('price');
       table.text('section');
     }),
 
     knex.schema.createTable('order', function(table){
       table.increments('id').unsigned().primary();
       table.text('phone_number');
-      table.dateTime("order_date");
-      table.dateTime("status");
+      table.text("status");
     }),
 
   ])
@@ -22,7 +21,6 @@ exports.up = async function(knex, Promise) {
           table.increments('id').unsigned().primary();
           table.integer('order_id').references('order.id');
           table.integer('item_id').references('item.id');
-          table.integer('price');
           table.integer('quantity');
     })
 };
