@@ -1,10 +1,5 @@
-html {
-  font-size: 10px;
-}
-
 body {
   font-size: 1.5rem;
-  color: $black;
 }
 
 h1, 
@@ -18,13 +13,13 @@ h6, {
   letter-spacing: -1px;
 }
 
+html {
+  font-size:62.5%;
+}
+
 a {
   text-decoration: none;
   color: $black;
-}
-
-p a {
-  border-bottom: 2px solid $yellow;
 }
 
 p {
