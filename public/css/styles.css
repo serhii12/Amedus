@@ -486,8 +486,8 @@ body {
 }
 
 h1 {
-  font-size: 72px;
-  font-size: 7.2rem;
+  font-size: 40px;
+  font-size: 4rem;
   line-height: 1.6;
   color: #fff;
   font-weight: 700;
@@ -498,8 +498,8 @@ h1 {
 }
 
 h2 {
-  font-size: 48px;
-  font-size: 4.8rem;
+  font-size: 25px;
+  font-size: 2.5rem;
   line-height: 1.6;
   color: #212121;
   font-weight: 900;
@@ -509,8 +509,8 @@ h2 {
 }
 
 h4 {
-  font-size: 48px;
-  font-size: 4.8rem;
+  font-size: 20px;
+  font-size: 2rem;
   line-height: 1.6;
   color: #d9cb94;
   font-weight: 400;
@@ -525,16 +525,6 @@ p {
   color: #696969;
   font-weight: 400;
   font-family: "Lato", sans-serif;
-}
-
-p.text--special {
-  font-size: 18px;
-  font-size: 1.8rem;
-  line-height: 1.6;
-  color: #6b6b6b;
-  font-weight: 900;
-  font-family: "Lato", sans-serif;
-  letter-spacing: 2.6px;
 }
 
 a {
@@ -682,12 +672,6 @@ label {
 }
 
 .main-header {
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(18, 27, 46, 0.5)), to(rgba(18, 27, 46, 0.5))), url("/assets/header.png");
-  background: linear-gradient(rgba(18, 27, 46, 0.5), rgba(18, 27, 46, 0.5)), url("/assets/header.png");
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -701,18 +685,87 @@ label {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(18, 27, 46, 0.5)), to(rgba(18, 27, 46, 0.5))), url("/assets/header.png");
+  background: linear-gradient(rgba(18, 27, 46, 0.5), rgba(18, 27, 46, 0.5)), url("/assets/header.png");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.main-header__center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 20rem;
+}
+
+.main-header__center h4 {
+  margin-bottom: 0;
+}
+
+.main-header__center__order {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main-header__center__order .btn--order {
+  border: 1px solid #fff;
+  background-color: transparent;
+  -webkit-transition: background-color 1s;
+  transition: background-color 1s;
+  margin-top: 1rem;
+}
+
+.main-header__center__order .btn--order:hover {
+  background-color: #2e4778;
+}
+
+.nav {
+  height: 60px;
+  z-index: 3;
+  width: 100%;
+  position: fixed;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+  background-color: #121b2e;
 }
 
 .nav__menu {
-  list-style: none;
-  margin: 0;
-  padding: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 1rem 0 0 0;
 }
 
 .nav__menu__item__logo {
@@ -724,6 +777,36 @@ label {
 
 .nav__menu__item__link i {
   color: #d9cb94;
+}
+
+.nav__menu__item__link .cartitem {
+  position: relative;
+}
+
+.nav__menu__item__link .cartcount {
+  font-family: sans-serif;
+  position: absolute;
+  background: #f21;
+  color: #fff;
+  text-align: center;
+  padding-top: 4px;
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+  margin: -5px 0 0 20px;
+  border-radius: 1000px;
+  font-weight: 700;
+}
+
+.btn {
+  text-decoration: none;
+  color: #fff;
+  padding: 1.5rem 1.9rem;
+  display: inline-block;
+}
+
+section {
+  padding: 140px 0;
 }
 
 .heart__button {
@@ -812,13 +895,6 @@ label {
 .hide {
   text-indent: -999999px;
   font-size: 0;
-}
-
-.button {
-  border: 0;
-  background: #FFC40E;
-  color: #303030;
-  font-weight: 600;
 }
 
 .avatar {

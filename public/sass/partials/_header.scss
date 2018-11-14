@@ -1,11 +1,69 @@
 .main-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   background: linear-gradient(rgba(18, 27, 46,0.5), rgba(18, 27, 46,0.5)), url("/assets/header.png");
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  // HEADER-CENTER STYLES
+  &__center {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20rem;
+    h4 {
+      margin-bottom: 0;
+    }
+    &__order {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .btn--order {
+        border: 1px solid $color__white;
+        background-color: transparent;
+        transition: background-color 1s;
+        margin-top: 1rem;
+        &:hover {
+          background-color: $color__secondary--light-blue;
+        }
+      }
+    }
+  }
 }
+
+
+
+
+
+// &__center {
+//   .flex-wrapper {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     text-align: center;
+//     h4 {
+//       margin-bottom: 0;
+//     }
+//     .heading__button {
+//       display: flex;
+//       flex-direction: column;
+//       width: 30%;
+//       .button--order {
+//         margin-top: 1rem;
+//         border: 1px solid $color__white;
+//         background-color: transparent;
+//         transition: background-color 1s;
+//         &:hover {
+//           background-color: $color__secondary--light-blue;
+//         }
+//       }
+//     }
+//   }
+// }
