@@ -8,10 +8,11 @@ const sass = require('node-sass-middleware');
 
 const app = express();
 
-const knex = require('knex')(knexConfig[ENV]);
-const morgan = require('morgan');
-const knexLogger = require('knex-logger');
+// eslint-disable-next-line import/order
 const knexConfig = require('./knexfile');
+const knex = require('knex')(knexConfig[ENV]);
+const knexLogger = require('knex-logger');
+const morgan = require('morgan');
 
 // Seperated Routes for each Resource
 const usersRoutes = require('./routes/users');
