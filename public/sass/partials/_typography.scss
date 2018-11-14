@@ -1,28 +1,38 @@
 body {
-  font-size: 1.5rem;
+  font-size: $base__font-size;
+  font-family: $font__family-body;
 }
 
-h1, 
-h2, 
-h3, 
-h4, 
-h5, 
-h6, {
-  font-size: 5rem;
-  font-weight: 600;
-  letter-spacing: -1px;
+h1 {
+  @include text(72,$weight:700);
+  @include spacing(5px);
+  margin: 0;
+  text-transform: uppercase;
 }
 
-html {
-  font-size:62.5%;
+h2 {
+  @include text(48,$color:$color__secondary,$weight:900);
+  @include spacing(5px);
+  text-transform: uppercase;
 }
 
-a {
-  text-decoration: none;
-  color: $black;
+h4 {
+  @include text(48,$color:$color__primary,$family:$font__family-aguafina);
+  @include spacing(1.5px);
 }
 
 p {
-  line-height: 2;
-  font-size: 1.6rem;
+  @include text(15,1.87,$color__paragraphs);
+}
+
+p.text--special {
+  @include text(18,$color:lighten($color__black, 42%),$weight:900);
+  @include spacing(2.6px);
+}
+
+a {
+  @include fontSize(14);
+  @include spacing(1.2px);
+  text-transform: uppercase;
+  text-decoration: none;
 }

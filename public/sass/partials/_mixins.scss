@@ -3,6 +3,14 @@
   font-size: ($sizeValue/10) * 1rem;
 }
 
+@mixin text($size,$line:$base__line,$color:$color__white, $weight:$base__weight,$family:$font__family-lato) {
+  @include fontSize($size);
+  line-height: $line;
+  color: $color;
+  font-weight: $weight;
+  font-family: $family;
+}
+
 @mixin spacing($letter-spacing) {
   letter-spacing: $letter-spacing;
 }
