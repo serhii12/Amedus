@@ -1,8 +1,20 @@
 .nav {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  justify-content: space-between;
-  background: $black;
+  &__menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-evenly;
+    &__item {
+      &__logo {
+        margin: 0;
+        @include fontSize(14);
+        color: $color__white;
+      }
+      &__link i {
+        color: $color__primary;
+      }
+    }
+  }
+
 }

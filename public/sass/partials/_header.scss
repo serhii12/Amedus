@@ -1,0 +1,11 @@
+.main-header {
+  background: linear-gradient(rgba(18, 27, 46,0.5), rgba(18, 27, 46,0.5)), url("/assets/header.png");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
