@@ -47,33 +47,24 @@ app.use(express.static('public'));
 
 // Mount all resource routes
 app.use('/api/users', usersRoutes(knex));
+// This is the route to use for the orders
+// app.use('/order', itemsRoutes(knex));
 
 // Home page
 app.get('/', (req, res) => {
-
-    let orderID;
-
-  if (!req.session.order_id) {
-    function someFunc (dbReponse) {
-      return orderID = dbReponse;
-    }
-
-  knex('order')
-    .insert({ phone_number: "", status: "" })
-    .returning("id")
-    .then(newEntry => {
-      someFunc(newEntry);
+  knex
+    .select('*')
+    .from('item')
+    .catch(function(error) {
+      console.error(error);
     })
-    .catch(err => { console.log(err); throw err })
-    .finally(() => knex.destroy())
-
-  }
-
-  req.session.order_id = orderID;
-  res.render('index');
-});
-
+    .then(function (results) {
+      let templateVars = {results};
+      console.log('RESULT WITH OBJECT',templateVars);
+      res.render('index',results)});
+  })
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
+
 });
