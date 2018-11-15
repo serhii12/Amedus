@@ -29,13 +29,12 @@ app.get('/time', function(req, res) {
 });
 
 app.post('/order', function(req, res) {
-    console.log(req.body.usrtel);
-    console.log(fdb.url1);
+    // console.log(req.body.usrtel);
 
 //sends a message to the customer thanking them for their order
     client.messages
   .create({
-    body: 'Thank you for your order 🦋.  We\'ll send a pickup time shortly',
+    body: 'Thank you for your order 🕷.  We\'ll send a pickup time shortly',
      // body: `Thanks for your order from RESTAURANT...it  will be ready for pickup in 15 minutes.`,
      from: '+16474908806',
      to: `'+1'${req.body.usrtel}'`
@@ -60,19 +59,21 @@ app.post('/ordertime/', function(req, res) {
   console.log(req.body.time);
   console.log(req.body.userphone);
 
-//sends a message to the customer with confirm order and time
-  // if(req.body.time === 'cancel') {
-  //   const custMessage = `Thank you 🦄.  Your order will be ready in ${req.body.time} minutes.`
-  // } else {
-  //   const custMessage = `Sorry 😕.  Your order has been cancelled by the restaurant.`
-  // };
+    //sends a message to the customer with confirm order and time
+    var custMessage = "";
+    if(req.body.time === 'cancel') {
+       custMessage = `Thank you 🦄.  Your order will be ready in ${req.body.time} minutes.`
+    } else {
+       custMessage = `Sorry 😕.  Your order has been cancelled by the restaurant.`
+    };
 
     client.messages
   .create({
-     // body: custMessage,
-     body: `Thank you 🦄.  Your order will be ready in ${req.body.time} minutes.`,
+     body: custMessage,
+     // body: `Thank you 🦄.  Your order will be ready in ${req.body.time} minutes.`,
      from: '+16474908806',
      to: `'+1'${req.body.userphone}'`
+     // to: `'+1'${req.body.userphone}'`
    })
   .then(message => console.log(message.sid))
   .done();
