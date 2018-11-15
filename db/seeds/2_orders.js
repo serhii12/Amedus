@@ -5,16 +5,20 @@ exports.seed = function(knex, Promise) {
       Promise.all([
         knex('order').insert({
           phone_number: '6472234590',
-          status: "complete" }),
+          status: 'complete',
+        }),
         knex('order').insert({
           phone_number: '6472234590',
-          status: "complete" }),
+          status: 'complete',
+        }),
         knex('order').insert({
           phone_number: '6472234590',
-          status: "complete" }),
+          status: 'complete',
+        }),
         knex('order').insert({
           phone_number: '6472234590',
-          status: "complete" })
+          status: 'complete',
+        }),
       ])
     );
 };

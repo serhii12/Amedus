@@ -5,7 +5,7 @@ const ENV = process.env.ENV || 'development';
 const express = require('express');
 const bodyParser = require('body-parser');
 const sass = require('node-sass-middleware');
-const cookieSession = require("cookie-session");
+const cookieSession = require('cookie-session');
 
 const app = express();
 
@@ -15,12 +15,14 @@ const knex = require('knex')(knexConfig[ENV]);
 const knexLogger = require('knex-logger');
 const morgan = require('morgan');
 
-//setting cookie session to 6 hours
-app.use(cookieSession({
-  name: "session",
-  keys: ["123"],
-  maxAge: 6 * 60 * 60 * 1000
-}));
+// setting cookie session to 6 hours
+app.use(
+  cookieSession({
+    name: 'session',
+    keys: ['123'],
+    maxAge: 6 * 60 * 60 * 1000,
+  })
+);
 
 // Seperated Routes for each Resource
 const usersRoutes = require('./routes/users');
@@ -46,7 +48,7 @@ app.use(
 app.use(express.static('public'));
 
 // Mount all resource routes
-app.use('/api/users', usersRoutes(knex));
+// app.use('/api/users', usersRoutes(knex));
 // This is the route to use for the orders
 // app.use('/order', itemsRoutes(knex));
 
@@ -55,30 +57,34 @@ app.get('/', (req, res) => {
   knex
     .select('*')
     .from('item')
-    .catch(function(error) {
+    .catch(error => {
       console.error(error);
     })
-    .then(function (results) {
-      let templateVars = {results};
-      console.log('RESULT WITH OBJECT',templateVars);
-      res.render('index',results)});
-  })
+    .then(results => {
+      const templateVars = { results };
+      console.log('RESULT WITH OBJECT', templateVars);
+      res.render('index', results);
+    });
+});
+
+app.get('/checkout', (req, res) => {
+  res.render('checkout');
+});
 
 app.post('/checkout', (req, res) => {
   knex
     .select('*')
     .from('item')
-    .catch(function(error) {
+    .catch(error => {
       console.error(error);
     })
-    .then(function (results) {
-      let templateVars = {results};
-      console.log('RESULT WITH OBJECT',templateVars);
-      res.render('checkout',results)});
-  })
-
+    .then(results => {
+      const templateVars = { results };
+      console.log('RESULT WITH OBJECT', templateVars);
+      res.render('checkout', results);
+    });
+});
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
-
 });
