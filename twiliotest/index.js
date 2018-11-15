@@ -61,10 +61,10 @@ app.post('/ordertime/', function(req, res) {
 
     //sends a message to the customer with confirm order and time
     var custMessage = "";
-    if(req.body.time === 'cancel') {
+    if(req.body.time !== 'cancel') {
        custMessage = `Thank you 🦄.  Your order will be ready in ${req.body.time} minutes.`
     } else {
-       custMessage = `Sorry 😕.  Your order has been cancelled by the restaurant.`
+       custMessage = `Sorry 😕.  Your order has been cancelled by the restaurant. PS go fuck yourself`
     };
 
     client.messages
