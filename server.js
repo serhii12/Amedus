@@ -74,7 +74,7 @@ app.post('/checkout', (req, res) => {
     .then(function (results) {
       let templateVars = {results};
       console.log('RESULT WITH OBJECT',templateVars);
-      res.render('checkout-page',results)});
+      res.render('checkout',results)});
   })
 
 
