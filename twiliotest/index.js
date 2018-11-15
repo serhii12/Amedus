@@ -44,7 +44,7 @@ app.post('/order', function(req, res) {
 //sends a message to the restaurant with phone number of customer asks for time input
       client.messages
   .create({
-     body: `🦕Customer ${req.body.usrtel} just placed an order.\nPickup is set to 15 minutes\nClick here view order or change time\nhttps://goo.gl/wAVi9r`,
+     body: `🦕Customer ${req.body.usrtel} just placed an order.\nPickup is set to 15 minutes\nClick here view order or change time\nhttp://bit.ly/2qNy6Lm`,
      from: '+16474908806',
      to: '+14163578459'
    })
