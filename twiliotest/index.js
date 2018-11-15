@@ -6,6 +6,7 @@ const app           = express();
 
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
+const fdb = require('./fdatabase.js');
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -29,6 +30,7 @@ app.get('/time', function(req, res) {
 
 app.post('/order', function(req, res) {
     console.log(req.body.usrtel);
+    console.log(fdb.url1);
 
 //sends a message to the customer thanking them for their order
     client.messages
@@ -44,7 +46,7 @@ app.post('/order', function(req, res) {
 //sends a message to the restaurant with phone number of customer asks for time input
       client.messages
   .create({
-     body: `🦕Customer ${req.body.usrtel} just placed an order.\nPickup is set to 15 minutes\nClick here view order or change time\nhttp://bit.ly/2qNy6Lm`,
+     body: `🦕Customer ${req.body.usrtel} just placed an order.\nPickup is set to 15 minutes\nClick here view order or change time\nhttp://bit.ly/2qNy6Lm/${req.body.orderid}`,
      from: '+16474908806',
      to: '+14163578459'
    })
@@ -56,6 +58,7 @@ app.post('/order', function(req, res) {
 
 app.post('/ordertime/', function(req, res) {
   console.log(req.body.time);
+  console.log(req.body.userphone);
 
 //sends a message to the customer with confirm order and time
   // if(req.body.time === 'cancel') {
@@ -69,7 +72,7 @@ app.post('/ordertime/', function(req, res) {
      // body: custMessage,
      body: `Thank you 🦄.  Your order will be ready in ${req.body.time} minutes.`,
      from: '+16474908806',
-     to: '+14163578459'
+     to: `'+1'${req.body.userphone}'`
    })
   .then(message => console.log(message.sid))
   .done();
