@@ -1,20 +1,47 @@
 .nav {
+    height: 60px;
+    z-index: 3;
+    width: 100%;
+    position: fixed;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+    background-color: #121b2e;
   &__menu {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 1rem 0 0 0;
     &__item {
       &__logo {
         margin: 0;
         @include fontSize(14);
         color: $color__white;
       }
-      &__link i {
-        color: $color__primary;
+      &__link {
+        i {
+          color: $color__primary;
+        }
+
+        .cartitem {
+          position: relative;
+        }
+        
+        .cartcount {
+          font-family: sans-serif;
+          position: absolute;
+          background: #f21;
+          color: #fff;
+          text-align: center;
+          padding-top: 4px;
+          width: 20px;
+          height: 20px;
+          font-size: 10px;
+          margin: -5px 0 0 20px;
+          border-radius: 1000px;
+          font-weight: 700;
+        }
       }
     }
   }
-
 }

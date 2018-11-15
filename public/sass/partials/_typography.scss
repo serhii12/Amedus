@@ -4,30 +4,25 @@ body {
 }
 
 h1 {
-  @include text(72,$weight:700);
+  @include text(40,$weight:700);
   @include spacing(5px);
   margin: 0;
   text-transform: uppercase;
 }
 
 h2 {
-  @include text(48,$color:$color__secondary,$weight:900);
+  @include text(25,$color:$color__secondary,$weight:900);
   @include spacing(5px);
   text-transform: uppercase;
 }
 
 h4 {
-  @include text(48,$color:$color__primary,$family:$font__family-aguafina);
+  @include text(20,$color:$color__primary,$family:$font__family-aguafina);
   @include spacing(1.5px);
 }
 
 p {
   @include text(15,1.87,$color__paragraphs);
-}
-
-p.text--special {
-  @include text(18,$color:lighten($color__black, 42%),$weight:900);
-  @include spacing(2.6px);
 }
 
 a {
