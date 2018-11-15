@@ -21,4 +21,8 @@ $(() => {
       }
     }
   );
+  $('.menu__item').on('click', 'a', function() {
+    const toDoListItem = $(this).parent();
+    toDoListItem.remove();
+  });
 });
