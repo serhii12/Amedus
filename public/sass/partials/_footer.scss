@@ -1,0 +1,43 @@
+.main-footer {
+  display: grid;
+  background-color: black;
+  &__cols {
+    display: flex;
+    justify-content: space-around;
+    height: 100%;
+    .col {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    &-left {
+      height: 60%;
+      & > * {
+        @include fontSize(11);
+        color: $color__primary;
+      }
+      & > a {
+        text-transform: lowercase;
+      }
+    }
+
+    &-right {
+      & > p {
+        color: $color__paragraphs;
+        @include fontSize(11);
+        text-transform: uppercase;
+      }
+    }
+  }
+  &--heading {
+    text-transform: uppercase;
+    color: $color__secondary--light;
+    @include fontSize(12);
+  }
+  &__bottom {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+  }
+}
