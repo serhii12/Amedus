@@ -6,6 +6,7 @@
 This is where the restaurant will update the order.
 
 <form action='/ordertime' method="POST">
+  <!-- we should insert user phone number at top of this page -->
   <h2>Order for:  416 357 8459</h2>
   <strong>How long until the order is ready:</strong>
   <div>
@@ -25,11 +26,11 @@ This is where the restaurant will update the order.
      name="time" value="cancel">
     <label for="timeChoice4">Cancel order</label>
 
-    <input type="hidden" name="userphone" value="4165222220">
+    <!-- THIS IS WHERE THE DB HAS TO FEED THE USER PHONE NUMBER INTO 'VALUE' -->
+    <input type="hidden" name="userphone" value="4163578459">
 
 
-<!--     <% var customerNum = 4163578459; %>
- -->  </div>
+   </div>
   <div>
     <button type="submit">Submit</button>
   </div>
