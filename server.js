@@ -48,9 +48,7 @@ app.use(
 app.use(express.static('public'));
 
 // Mount all resource routes
-// app.use('/api/users', usersRoutes(knex));
 // This is the route to use for the orders
-// app.use('/order', itemsRoutes(knex));
 
 // Home page
 app.get('/', (req, res) => {
@@ -61,9 +59,11 @@ app.get('/', (req, res) => {
       console.error(error);
     })
     .then(results => {
-      const templateVars = { results };
-      console.log('RESULT WITH OBJECT', templateVars);
-      res.render('index', results);
+      const mainDishes = results.filter(element => element.section === 'main');
+      const sideDishes = results.filter(element => element.section === 'side');
+      const drinks = results.filter(element => element.section === 'drink');
+      const templateVar = { mainDishes, sideDishes, drinks };
+      res.render('index', templateVar);
     });
 });
 
@@ -71,19 +71,19 @@ app.get('/checkout', (req, res) => {
   res.render('checkout');
 });
 
-app.post('/checkout', (req, res) => {
-  knex
-    .select('*')
-    .from('item')
-    .catch(error => {
-      console.error(error);
-    })
-    .then(results => {
-      const templateVars = { results };
-      console.log('RESULT WITH OBJECT', templateVars);
-      res.render('checkout', results);
-    });
-});
+// app.post('/checkout', (req, res) => {
+//   knex
+//     .select('*')
+//     .from('item')
+//     .catch(error => {
+//       console.error(error);
+//     })
+//     .then(results => {
+//       const templateVars = { results };
+//       console.log('RESULT WITH OBJECT', templateVars);
+//       res.render('checkout', results);
+//     });
+// });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
