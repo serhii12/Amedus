@@ -25,7 +25,8 @@ app.use(
 );
 
 // Seperated Routes for each Resource
-const usersRoutes = require('./routes/users');
+// const indexRoutes = require('./routes/index');
+// const orderRoutes = require('./routes/order');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -48,7 +49,6 @@ app.use(
 app.use(express.static('public'));
 
 // Mount all resource routes
-// This is the route to use for the orders
 
 // Home page
 app.get('/', (req, res) => {
