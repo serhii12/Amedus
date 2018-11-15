@@ -64,6 +64,20 @@ app.get('/', (req, res) => {
       res.render('index',results)});
   })
 
+app.post('/checkout', (req, res) => {
+  knex
+    .select('*')
+    .from('item')
+    .catch(function(error) {
+      console.error(error);
+    })
+    .then(function (results) {
+      let templateVars = {results};
+      console.log('RESULT WITH OBJECT',templateVars);
+      res.render('checkout-page',results)});
+  })
+
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 

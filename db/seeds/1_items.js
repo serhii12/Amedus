@@ -5,78 +5,78 @@ exports.seed = function(knex, Promise) {
       Promise.all([
         knex('item').insert({
           name: 'Hamburger',
-          price: 5.99,
+          price: 599,
           description: "Something",
           section: "main"}),
         knex('item').insert({
           name: 'Cheeseburger',
           description: "Something",
-          price: 6.29,
+          price: 629,
           section: "main" }),
         knex('item').insert({
           name: 'Bacon Cheeseburger',
           description: "Something",
-          price: 7.99,
+          price: 799,
           section: "main" }),
         knex('item').insert({
           name: 'Chicken Strips',
           description: "Something",
-          price: 5.99,
+          price: 599,
           section: "main" }),
         knex('item').insert({
           name: 'Chicken Bacon Ranch',
           description: "Something",
-          price: 8.29,
+          price: 829,
           section: "main" }),
         knex('item').insert({
           name: 'Holy Smokes Burger',
           description: "Something",
-          price: 10.49,
+          price: 1049,
           section: "main" }),
         knex('item').insert({
           name: 'Heavvy Burger',
           description: "Something",
-          price: 8.99,
+          price: 899,
           section: "main" }),
         knex('item').insert({
           name: 'Gravy',
           description: "Something",
-          price: 1.29,
+          price: 129,
           section: "side" }),
         knex('item').insert({
           name: 'Fresh Cut Fries',
           description: "Something",
-          price: 5.99,
+          price: 599,
           section: "side" }),
         knex('item').insert({
           name: 'Poutine',
           description: "Something",
-          price: 6.99,
+          price: 699,
           section: "side" }),
         knex('item').insert({
           name: 'Cheese Fries',
           description: "Something",
-          price: 5.99,
+          price: 599,
           section: "side" }),
         knex('item').insert({
           name: 'Orange Juice',
           description: "Something",
-          price: 1.99,
+          price: 199,
           section: "drink" }),
         knex('item').insert({
           name: 'Pop',
           description: "Something",
-          price: 1.69,
+          price: 169,
           section: "drink" }),
         knex('item').insert({
           name: 'Bottled Water',
           description: "Something",
-          price: 1.69,
+          price: 169,
           section: "drink" }),
         knex('item').insert({
           name: 'Milk Shake',
           description: "Something",
-          price: 4.99,
+          price: 499,
           section: "drink" })
       ])
     );

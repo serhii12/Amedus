@@ -5,7 +5,7 @@ exports.up = async function(knex, Promise) {
       table.increments('id').unsigned().primary();
       table.string('name');
       table.string('description');
-      table.decimal('price');
+      table.integer('price');
       table.string('section');
     }),
 
