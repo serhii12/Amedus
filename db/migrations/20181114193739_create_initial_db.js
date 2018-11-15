@@ -22,7 +22,6 @@ exports.up = async function(knex, Promise) {
           table.integer('order_id').unsigned().notNullable();
           table.integer('item_id').unsigned().notNullable();
           table.integer('quantity');
-
           table.foreign('order_id').references('id').inTable('order');
           table.foreign('item_id').references('id').inTable('item');
     })

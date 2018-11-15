@@ -50,13 +50,29 @@ app.use('/api/users', usersRoutes(knex));
 
 // Home page
 app.get('/', (req, res) => {
+
+    let orderID;
+
   if (!req.session.order_id) {
-    knex('order').insert({ phone_number: "", status: "" }).then(() => console.log("data inserted"))
-    .catch((err) => { console.log( err); throw err }).finally(() => { knex.destroy();});
+    function someFunc (dbReponse) {
+      return orderID = dbReponse;
+    }
+
+  knex('order')
+    .insert({ phone_number: "", status: "" })
+    .returning("id")
+    .then(newEntry => {
+      someFunc(newEntry);
+    })
+    .catch(err => { console.log(err); throw err })
+    .finally(() => knex.destroy())
+
   }
-  // req.session.order_id = userID;
+
+  req.session.order_id = orderID;
   res.render('index');
 });
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
