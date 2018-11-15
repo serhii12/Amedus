@@ -1,11 +1,49 @@
 .main-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   background: linear-gradient(rgba(18, 27, 46,0.5), rgba(18, 27, 46,0.5)), url("/assets/header.png");
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  // HEADER-CENTER STYLES
+  &__center {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    h4 {
+      margin-bottom: 0;
+    }
+    &__order {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .btn--order {
+        border: 1px solid $color__white;
+        background-color: transparent;
+        transition: background-color 1s;
+        margin-top: 1rem;
+        &:hover {
+          background-color: $color__secondary--light-blue;
+        }
+      }
+    }
+  }
+  &__bottom {
+    align-self: center;
+    color: $color__white;
+    display: flex;
+
+  > * {
+    @include text(10,2,$color__secondary--light);
+    font-style: normal;
+    margin: 1.5rem;
+    }
+  }
 }
