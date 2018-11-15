@@ -5,6 +5,7 @@ const ENV = process.env.ENV || 'development';
 const express = require('express');
 const bodyParser = require('body-parser');
 const sass = require('node-sass-middleware');
+const cookieSession = require("cookie-session");
 
 const app = express();
 
@@ -13,6 +14,13 @@ const knexConfig = require('./knexfile');
 const knex = require('knex')(knexConfig[ENV]);
 const knexLogger = require('knex-logger');
 const morgan = require('morgan');
+
+//setting cookie session to 6 hours
+app.use(cookieSession({
+  name: "session",
+  keys: ["123"],
+  maxAge: 6 * 60 * 60 * 1000
+}));
 
 // Seperated Routes for each Resource
 const usersRoutes = require('./routes/users');
@@ -42,6 +50,11 @@ app.use('/api/users', usersRoutes(knex));
 
 // Home page
 app.get('/', (req, res) => {
+  if (!req.session.order_id) {
+    knex('order').insert({ phone_number: "", status: "" }).then(() => console.log("data inserted"))
+    .catch((err) => { console.log( err); throw err }).finally(() => { knex.destroy();});
+  }
+  // req.session.order_id = userID;
   res.render('index');
 });
 
