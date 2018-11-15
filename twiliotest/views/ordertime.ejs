@@ -1,0 +1,36 @@
+<html>
+<head>
+  <title>Test page for Twilio order status</title>
+</head>
+<body>
+This is where the restaurant will update the order.
+
+<form action='/ordertime' method="POST">
+  <h2>Order for:  416 357 8459</h2>
+  <strong>How long until the order is ready:</strong>
+  <div>
+    <input type="radio" id="timeChoice1"
+     name="time" value="5" >
+    <label for="timeChoice1">5 min</label>
+
+    <input type="radio" id="timeChoice2"
+     name="time" value="15" checked>
+    <label for="timeChoice2">15 min</label>
+
+    <input type="radio" id="timeChoice3"
+     name="time" value="30">
+    <label for="timeChoice3">30 min</label>
+
+    <input type="radio" id="timeChoice4"
+     name="time" value="cancel">
+    <label for="timeChoice4">Cancel order</label>
+
+<!--     <% var customerNum = 4163578459; %>
+ -->  </div>
+  <div>
+    <button type="submit">Submit</button>
+  </div>
+</form>
+
+</body>
+</html>
