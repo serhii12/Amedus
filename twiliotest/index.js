@@ -29,7 +29,6 @@ app.get('/time', function(req, res) {
 });
 
 app.post('/order', function(req, res) {
-    // console.log(req.body.usrtel);
 
 //sends a message to the customer thanking them for their order
     client.messages
@@ -45,7 +44,7 @@ app.post('/order', function(req, res) {
 //sends a message to the restaurant with phone number of customer asks for time input
       client.messages
   .create({
-     body: `🦕Customer ${req.body.usrtel} just placed an order.\nPickup is set to 15 minutes\nClick here view order or change time\nhttp://bit.ly/2qNy6Lm/${req.body.orderid}`,
+     body: `🦕Customer ${req.body.usrtel} just placed an order.\nPickup is set to 15 minutes\nClick here view order or change time\nhttp://bit.ly/2qNy6Lm/${req.body.usrtel}`,
      from: '+16474908806',
      to: '+14163578459'
    })
@@ -70,10 +69,8 @@ app.post('/ordertime/', function(req, res) {
     client.messages
   .create({
      body: custMessage,
-     // body: `Thank you 🦄.  Your order will be ready in ${req.body.time} minutes.`,
      from: '+16474908806',
      to: `'+1'${req.body.userphone}'`
-     // to: `'+1'${req.body.userphone}'`
    })
   .then(message => console.log(message.sid))
   .done();
@@ -86,7 +83,7 @@ app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
   // this returns the content of the text message
   console.log(req.body.Body);
-  twiml.message('For letting the customer know...');
+  twiml.message('Hi.  Sorry we don\'t accept text messages...😬');
 
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
