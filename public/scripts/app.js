@@ -89,20 +89,24 @@ $(() => {
     checkoutCart.remove();
   });
 
-  const addQty = () => {
+  function addQty() {
+    console.log(this.parentNode.getAttribute('data-id'));
     const itemId = this.parentNode.getAttribute('data-id');
-    if (itemCart[itemId]) {
-      itemCart[itemId] += 1;
-      counter += 1;
-    }
-  };
-  const removeQty = () => {
+    itemCart[itemId] += 1;
+    counter += 1;
+    $('.counter').html(counter);
+    localStorage.setItem('ids', JSON.stringify(itemCart));
+    localStorage.setItem('counter', JSON.stringify(counter));
+  }
+  function removeQty() {
+    console.log(this.parentNode.getAttribute('data-id'));
     const itemId = this.parentNode.getAttribute('data-id');
-    if (!itemCart[itemId]) {
-      itemCart[itemId] = 1;
-      counter = 1;
-    }
-  };
+    itemCart[itemId] -= 1;
+    counter -= 1;
+    $('.counter').html(counter);
+    localStorage.setItem('ids', JSON.stringify(itemCart));
+    localStorage.setItem('counter', JSON.stringify(counter));
+  }
   const addButtons = document.querySelectorAll('.addQty');
   addButtons.forEach(button => button.addEventListener('click', addQty));
 
