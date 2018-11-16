@@ -35,9 +35,7 @@ app.use(
 );
 
 // Seperated Routes for each Resource
-//const usersRoutes = require('./routes/users');
 const checkoutRoutes = require('./routes/checkout');
-
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -63,13 +61,10 @@ app.use(express.static('public'));
 
 // Mount all resource routes
 // app.use('/api/users', usersRoutes(knex));
-
 app.use('/checkout', checkoutRoutes(knex));
 
-
-// Home page, grabbing menu items from the db to our page
+// Home page
 app.get('/', (req, res) => {
-
   knex
     .select('*')
     .from('item')
