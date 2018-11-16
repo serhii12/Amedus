@@ -3,75 +3,52 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = knex => {
-//     let templateVars;
-//   router.post('/', (req, res) => {
-//     const itemList = req.body.orderInfo;
-//     knex
-//       .select('*')
-//       .from('item')
-//       .whereIn('id', itemList)
-//       .catch(error => {
-//         console.error(error);
-//       })
-//       .then(results => {
-//         templateVars = { cartItems: results };
-//         res.end();
-//       });
-//   });
-//   router.get('/', (req, res) => {
-//     res.render('checkout', templateVars);
-//   });
-//   return router;
-// };
 
-//itemlist is the info sent from the manu page
   router.get('/', (req, res) => {
-    let itemList = [1,2,3,4,5];
-    knex
-    .select('*')
-    .from('item')
-    .whereIn('id', itemList)
-    .catch(error => {
-      console.error(error);
-    })
-    .then(results => {
-      const templateVars = { cart: results };
-      console.log('RESULT WITH OBJECT', templateVars);
-      res.render('checkout', templateVars);
-    });
+    res.render('checkout', templateVars);
   });
 
-//need to update the req.body.phone once the order confirmation is complete
-//ItemId is the info sent from the server
+  //Ajax is sending the cart to the checkout page
   router.post('/', (req, res) => {
-
-    let itemList = [1,2,3,4,5];
-
-    knex('order')
-    .insert({ phone_number: req.body.phone, status: "placed" })
-    .returning("id")
-    .catch(error => {
-      console.error(error);
-    })
-    .then(results => {
-      for (let item in itemList) {
-        knex('orderitem')
-        .insert({ order_id: results[0], item_id: item, quantity: 1 })
-        .catch(error => {
-          console.error(error);
-        })
-        .then(output => {
-          console.log("Data inserted", output);
-        });
-      }
-      const templateVars = { orderID: results[0] }
-      res.render('confirmation', templateVars);
-    });
+    const itemList = req.body.orderInfo;
+    knex
+      .select('*')
+      .from('item')
+      .whereIn('id', itemList)
+      .catch(error => {
+        console.error(error);
+      })
+      .then(results => {
+        templateVars = { cartItems: results };
+        res.end();
+      });
   });
+
+  router.post('/confirm', (req, res) => {
+    let itemList = [1,2,3,4,5];
+      knex('order')
+      .insert({ phone_number: req.body.phone, status: "placed" })
+      .returning("id")
+      .catch(error => {
+        console.error(error);
+      })
+      .then(results => {
+        for (let item in itemList) {
+          knex('orderitem')
+          .insert({ order_id: results[0], item_id: item, quantity: 1 })
+          .catch(error => {
+            console.error(error);
+          })
+          .then(output => {
+            console.log("Data inserted", output);
+          });
+        }
+        const templateVars = { orderID: results[0] }
+      });
+  });
+
   return router;
 };
-
-
 
 
   //sends a message to the customer thanking them for their order
