@@ -25,7 +25,9 @@ app.use(
 );
 
 // Seperated Routes for each Resource
-const usersRoutes = require('./routes/users');
+// const indexRoutes = require('./routes/index');
+// const orderRoutes = require('./routes/order');
+const checkoutRoutes = require('./routes/checkout');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -48,9 +50,7 @@ app.use(
 app.use(express.static('public'));
 
 // Mount all resource routes
-// app.use('/api/users', usersRoutes(knex));
-// This is the route to use for the orders
-// app.use('/order', itemsRoutes(knex));
+app.use('/checkout', checkoutRoutes(knex));
 
 // Home page
 app.get('/', (req, res) => {
@@ -61,27 +61,11 @@ app.get('/', (req, res) => {
       console.error(error);
     })
     .then(results => {
-      const templateVars = { results };
-      console.log('RESULT WITH OBJECT', templateVars);
-      res.render('index', results);
-    });
-});
-
-app.get('/checkout', (req, res) => {
-  res.render('checkout');
-});
-
-app.post('/checkout', (req, res) => {
-  knex
-    .select('*')
-    .from('item')
-    .catch(error => {
-      console.error(error);
-    })
-    .then(results => {
-      const templateVars = { results };
-      console.log('RESULT WITH OBJECT', templateVars);
-      res.render('checkout', results);
+      const mainDishes = results.filter(element => element.section === 'main');
+      const sideDishes = results.filter(element => element.section === 'side');
+      const drinks = results.filter(element => element.section === 'drink');
+      const templateVar = { mainDishes, sideDishes, drinks };
+      res.render('index', templateVar);
     });
 });
 
