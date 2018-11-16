@@ -3,11 +3,11 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = knex => {
-  let templateVars;
+  // let templateVars;
   // Ajax is sending the cart to the checkout page
-  router.post('/', (req, res) => {
-    const itemList = Object.keys(req.body);
-    const cartQty = req.body;
+  router.get('/', (req, res) => {
+    const itemList = Object.keys(req.session.items);
+    const cartQty = req.session.items;
     knex
       .select('*')
       .from('item')
@@ -16,13 +16,14 @@ module.exports = knex => {
         console.error(error);
       })
       .then(results => {
-        templateVars = { cartItems: results, cartQty };
-        res.end();
+        const templateVars = { cartItems: results, cartQty };
+        res.render('checkout', templateVars);
+        // res.end();
       });
   });
-  router.get('/', (req, res) => {
-    res.render('checkout', templateVars);
-  });
+  // router.get('/', (req, res) => {
+  //   res.render('checkout', templateVars);
+  // });
 
   // router.post('/confirm', (req, res) => {
   //   let itemList = [1,2,3,4,5];

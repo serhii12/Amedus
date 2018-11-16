@@ -18,7 +18,7 @@ function getIds() {
     // Also set coutner to length of that array
     counter = JSON.parse(localStorage.getItem('counter'));
     // And show the counter on the page
-    $('.cartcount').html(counter);
+    $('.cartcount').text(counter);
   }
 }
 
@@ -43,29 +43,37 @@ $(() => {
     }
   );
 
-  $('.nav__menu__item__link').click(e => {
-    e.preventDefault();
-    localStorage.setItem('ids', JSON.stringify(itemCart));
-    localStorage.setItem('counter', JSON.stringify(counter));
-    $.ajax({
-      type: 'post',
-      url: '/checkout',
-      data: itemCart,
-      success: () => {
-        window.location.href = 'http://localhost:8080/checkout';
-      },
-    });
-  });
+  // $('.nav__menu__item__link').click(e => {
+  //   e.preventDefault();
+  //   localStorage.setItem('ids', JSON.stringify(itemCart));
+  //   localStorage.setItem('counter', JSON.stringify(counter));
+  //   $.ajax({
+  //     type: 'get',
+  //     url: '/checkout',
+  //     data: itemCart,
+  //     // success: () => {
+  //     //   window.location.href = 'http://localhost:8080/checkout';
+  //     // },
+  //   });
+  // });
 
   function storeIdForTheCart(id) {
-    if (!itemCart[id]) {
-      itemCart[id] = 1;
-      counter += 1;
-    } else {
-      counter += 1;
-      itemCart[id] += 1;
-    }
-    $('.cartcount').html(counter);
+    $.ajax({
+      type: 'post',
+      url: '/addItem',
+      data: { id },
+      success(response) {
+        console.log('Counter ');
+      },
+    });
+    // if (!itemCart[id]) {
+    //   itemCart[id] = 1;
+    //   counter += 1;
+    // } else {
+    //   counter += 1;
+    //   itemCart[id] += 1;
+    // }
+    $('.cartcount').text(counter);
   }
   // Will take id for lookup
   function addItemsToTheCart() {
@@ -79,31 +87,45 @@ $(() => {
   );
 
   // Remove from LS
-  // function removeIdsFromLocalStorage(id) {
-  //   delete id;
-  // }
+  function removeIdsFromLocalStorage(id) {
+    // change to ajax post to remove item
+    delete itemCart[id];
+    localStorage.setItem('ids', JSON.stringify(itemCart));
+    localStorage.setItem('counter', JSON.stringify(counter));
+  }
   // Remove elemet on checkout page
   $('.menu__item').on('click', 'a', function() {
     const checkoutCart = $(this).parent();
-    // removeTaskFromLocalStorage(this.parentNode.getAttribute('data-id'));
+    removeIdsFromLocalStorage(this.parentNode.getAttribute('data-id'));
     checkoutCart.remove();
   });
 
   function addQty() {
-    console.log(this.parentNode.getAttribute('data-id'));
     const itemId = this.parentNode.getAttribute('data-id');
     itemCart[itemId] += 1;
     counter += 1;
-    $('.counter').html(counter);
-    localStorage.setItem('ids', JSON.stringify(itemCart));
-    localStorage.setItem('counter', JSON.stringify(counter));
+    $(`.${itemId}counter`).text(itemCart[itemId]);
+    $.ajax({
+      type: 'post',
+      url: '/addItem',
+      data: { id: itemId },
+      success(response) {
+        console.log('Counter ');
+      },
+    });
+    // localStorage.setItem('ids', JSON.stringify(itemCart));
+    // localStorage.setItem('counter', JSON.stringify(counter));
   }
   function removeQty() {
-    console.log(this.parentNode.getAttribute('data-id'));
     const itemId = this.parentNode.getAttribute('data-id');
+    const elementToRemove = $(this).parent();
     itemCart[itemId] -= 1;
+    if (itemCart[itemId] === 0) {
+      removeIdsFromLocalStorage(itemId);
+      elementToRemove.remove();
+    }
     counter -= 1;
-    $('.counter').html(counter);
+    $(`.${itemId}counter`).text(itemCart[itemId]);
     localStorage.setItem('ids', JSON.stringify(itemCart));
     localStorage.setItem('counter', JSON.stringify(counter));
   }

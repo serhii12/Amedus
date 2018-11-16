@@ -77,6 +77,18 @@ app.get('/', (req, res) => {
     });
 });
 
+app.post('/addItem', (req, res) => {
+  const itemId = req.body.id;
+  req.session.items = req.session.items || {};
+  req.session.items[itemId] = req.session.items[itemId] || 0;
+  req.session.items[itemId] += 1;
+  // change this response to indicate the new value of the counter
+  res.json({ count: 1 });
+});
+
+// also add a GET route to send the data in the req.session.items
+// add a post for removeItem
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
