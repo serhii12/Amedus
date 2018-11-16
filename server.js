@@ -5,14 +5,14 @@ const ENV = process.env.ENV || 'development';
 const express = require('express');
 const bodyParser = require('body-parser');
 const sass = require('node-sass-middleware');
-//might not need cookies
+// might not need cookies
 const cookieSession = require('cookie-session');
-
 
 const app = express();
 
 // Twilio setup
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
+
 const accountSid = 'ACfa1ca1e10683bd493f7fb5e71c3a4452';
 const authToken = '40ee1a3973fb5f2e8975aab954516a81';
 const client = require('twilio')(accountSid, authToken);
@@ -54,7 +54,6 @@ app.use(
   })
 );
 
-//do we need below if we are using templates and not a static page?
 app.use(express.static('public'));
 
 // Mount all resource routes

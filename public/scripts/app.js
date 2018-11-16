@@ -82,23 +82,32 @@ $(() => {
   $('.menu__item').on('click', 'a', function() {
     const toDoListItem = $(this).parent();
     // removeTaskFromLocalStorage(this.parentNode.getAttribute('data-id'));
-    toDoListItem.remove();
+    // toDoListItem.remove();
   });
 
-  // Remove from LS
-  function removeTaskFromLocalStorage(id) {
-    if (!itemCart[id]) {
-      itemCart[id] = 1;
-      counter += 1;
-    } else {
-      counter += 1;
-      itemCart[id] += 1;
-    }
-    // itemCart.forEach((id, index) => {
-    //   if (itemCart[index] === id) {
-    //     itemCart.splice(index, 0);
-    //   }
+  console.log(itemCart);
+  const addQty = id => {
+    // Lookup itemCart id
+    // const qty = itemCart[id];
+    // $('.counter').html(qty);
+    // $('.id').click(() => {
+    //   counter--;
+    //   $('.counter').html(counter);
     // });
-    localStorage.setItem('ids', JSON.stringify(itemCart));
-  }
+    // $('').click(() => {
+    //   counter++;
+    //   $('.counter').html(counter);
+    // });
+    // id id="add"
+    // id id="subtract"
+    // this.parentNode.getAttribute('data-id')
+  };
+
+  // Remove from LS
+  // function removeTaskFromLocalStorage(id) {
+  //   if (itemCart[id]) {
+  //     itemCart[id] -= 1;
+  //     counter -= 1;
+  //   }
+  // }
 });
