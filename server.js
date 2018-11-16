@@ -27,6 +27,7 @@ app.use(
 // Seperated Routes for each Resource
 // const indexRoutes = require('./routes/index');
 // const orderRoutes = require('./routes/order');
+const checkoutRoutes = require('./routes/checkout');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -49,6 +50,7 @@ app.use(
 app.use(express.static('public'));
 
 // Mount all resource routes
+app.use('/checkout', checkoutRoutes(knex));
 
 // Home page
 app.get('/', (req, res) => {
@@ -65,10 +67,6 @@ app.get('/', (req, res) => {
       const templateVar = { mainDishes, sideDishes, drinks };
       res.render('index', templateVar);
     });
-});
-
-app.get('/checkout', (req, res) => {
-  res.render('checkout');
 });
 
 app.listen(PORT, () => {

@@ -22,13 +22,26 @@ $(() => {
   );
 
   let counter = 0;
-
-  function addItemsToTheCart(e) {
+  // Will take id for lookup
+  const arrayOfOrderInfo = [];
+  function addItemsToTheCart() {
     // add to cart coutner everytime item has been clicked
-    counter++;
-    console.log();
+    counter += 1;
+    arrayOfOrderInfo.push(this.parentNode.getAttribute('data-id'));
     $('.cartcount').html(counter);
   }
+
+  $('.nav__menu__item__link').click(e => {
+    e.preventDefault();
+    $.ajax({
+      type: 'post',
+      url: '/checkout',
+      data: { orderInfo: arrayOfOrderInfo },
+      success: () => {
+        window.location.href = 'http://localhost:8080/checkout';
+      },
+    });
+  });
 
   const buttons = document.querySelectorAll('.menu__item-add');
   buttons.forEach(button =>
