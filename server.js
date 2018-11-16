@@ -1,13 +1,23 @@
 require('dotenv').config();
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 const ENV = process.env.ENV || 'development';
 const express = require('express');
 const bodyParser = require('body-parser');
 const sass = require('node-sass-middleware');
+//might not need cookies
 const cookieSession = require('cookie-session');
 
+//not sure if this one is needed
+const numberRoutes  = express.Router();
+
 const app = express();
+
+// Twilio setup
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
+const accountSid = 'ACfa1ca1e10683bd493f7fb5e71c3a4452';
+const authToken = '40ee1a3973fb5f2e8975aab954516a81';
+const client = require('twilio')(accountSid, authToken);
 
 // eslint-disable-next-line import/order
 const knexConfig = require('./knexfile');
@@ -15,7 +25,7 @@ const knex = require('knex')(knexConfig[ENV]);
 const knexLogger = require('knex-logger');
 const morgan = require('morgan');
 
-// setting cookie session to 6 hours
+// setting cookie session to 6 hours - might not need it
 app.use(
   cookieSession({
     name: 'session',
@@ -25,8 +35,6 @@ app.use(
 );
 
 // Seperated Routes for each Resource
-// const indexRoutes = require('./routes/index');
-// const orderRoutes = require('./routes/order');
 const checkoutRoutes = require('./routes/checkout');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -47,9 +55,12 @@ app.use(
     outputStyle: 'expanded',
   })
 );
+
+//do we need below if we are using templates and not a static page?
 app.use(express.static('public'));
 
 // Mount all resource routes
+// app.use('/api/users', usersRoutes(knex));
 app.use('/checkout', checkoutRoutes(knex));
 
 // Home page
