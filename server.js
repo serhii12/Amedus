@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 const ENV = process.env.ENV || 'development';
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -8,8 +8,6 @@ const sass = require('node-sass-middleware');
 //might not need cookies
 const cookieSession = require('cookie-session');
 
-//not sure if this one is needed
-const numberRoutes  = express.Router();
 
 const app = express();
 
