@@ -6,6 +6,7 @@
   <main class="cart">
     <section class="wrapper">
       <h1>Cart</h1>
+      <% if(cartItems) {%>
       <%cartItems.forEach( dish  => { %>
       <li class="menu__item">
         <a href='#' class="myLink">
@@ -25,6 +26,8 @@
         </p>
       </li>
       <%}) %>
+      <% } else{ %>
+      <% console.log('empty')}%>
       <div class="total-price">
         <h3>Total Price: 0</h3>
       </div>
