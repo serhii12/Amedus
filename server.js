@@ -1,13 +1,23 @@
 require('dotenv').config();
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 const ENV = process.env.ENV || 'development';
 const express = require('express');
 const bodyParser = require('body-parser');
 const sass = require('node-sass-middleware');
+//might not need cookies
 const cookieSession = require('cookie-session');
 
+//not sure if this one is needed
+const numberRoutes  = express.Router();
+
 const app = express();
+
+// Twilio setup
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
+const accountSid = 'ACfa1ca1e10683bd493f7fb5e71c3a4452';
+const authToken = '40ee1a3973fb5f2e8975aab954516a81';
+const client = require('twilio')(accountSid, authToken);
 
 // eslint-disable-next-line import/order
 const knexConfig = require('./knexfile');
@@ -15,7 +25,7 @@ const knex = require('knex')(knexConfig[ENV]);
 const knexLogger = require('knex-logger');
 const morgan = require('morgan');
 
-// setting cookie session to 6 hours
+// setting cookie session to 6 hours - might not need it
 app.use(
   cookieSession({
     name: 'session',
@@ -26,6 +36,8 @@ app.use(
 
 // Seperated Routes for each Resource
 const usersRoutes = require('./routes/users');
+const checkoutRoutes = require('./routes/checkout');
+
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -45,14 +57,17 @@ app.use(
     outputStyle: 'expanded',
   })
 );
+
+//do we need below if we are using templates and not a static page?
 app.use(express.static('public'));
 
 // Mount all resource routes
 // app.use('/api/users', usersRoutes(knex));
-// This is the route to use for the orders
-// app.use('/order', itemsRoutes(knex));
 
-// Home page
+app.use('/checkout', checkoutRoutes(knex));
+
+
+// Home page, grabbing menu items from the db to our page
 app.get('/', (req, res) => {
   knex
     .select('*')
@@ -61,27 +76,11 @@ app.get('/', (req, res) => {
       console.error(error);
     })
     .then(results => {
-      const templateVars = { results };
-      console.log('RESULT WITH OBJECT', templateVars);
-      res.render('index', results);
-    });
-});
-
-app.get('/checkout', (req, res) => {
-  res.render('checkout');
-});
-
-app.post('/checkout', (req, res) => {
-  knex
-    .select('*')
-    .from('item')
-    .catch(error => {
-      console.error(error);
-    })
-    .then(results => {
-      const templateVars = { results };
-      console.log('RESULT WITH OBJECT', templateVars);
-      res.render('checkout', results);
+      const mainDishes = results.filter(element => element.section === 'main');
+      const sideDishes = results.filter(element => element.section === 'side');
+      const drinks = results.filter(element => element.section === 'drink');
+      const templateVar = { mainDishes, sideDishes, drinks };
+      res.render('index', templateVar);
     });
 });
 
