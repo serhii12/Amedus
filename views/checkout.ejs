@@ -8,7 +8,7 @@
       <h1>Cart</h1>
       <% if(cartItems) {%>
       <%cartItems.forEach( dish  => { %>
-      <li class="menu__item">
+      <li class="menu__item" data-id="<%= dish.id %>">
         <a href='#' class="myLink">
           <i class='fa fa-times-circle'></i>
         </a>

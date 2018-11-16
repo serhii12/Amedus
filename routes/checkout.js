@@ -6,7 +6,7 @@ module.exports = knex => {
   let templateVars;
   // Ajax is sending the cart to the checkout page
   router.post('/', (req, res) => {
-    const itemList = req.body.orderInfo;
+    const itemList = Object.keys(req.body);
     knex
       .select('*')
       .from('item')
@@ -15,8 +15,9 @@ module.exports = knex => {
         console.error(error);
       })
       .then(results => {
+        console.log('I am Result', results);
         templateVars = { cartItems: results };
-        res.render('checkout', templateVars);
+        res.end();
       });
   });
   router.get('/', (req, res) => {
@@ -94,4 +95,3 @@ module.exports = knex => {
 //    })
 //   .then(message => console.log(message.sid))
 //   .done();
-

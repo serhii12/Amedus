@@ -1,3 +1,43 @@
+// On Document load call functions which will check local storage for any ids
+document.addEventListener('DOMContentLoaded', getIds);
+// Set counter
+let counter;
+let itemCart;
+
+// Get Ids of the items in the local storage
+function getIds() {
+  // Check if local storage doesn't exists
+  if (localStorage.getItem('ids') === null) {
+    // if not not make cartItems empty object
+    itemCart = {};
+    counter = 0;
+  } else {
+    // if localStorage.getItem('ids') is not NULL meaning we have previusly saved id's
+    // Then set cartItems to the array of ids
+    itemCart = JSON.parse(localStorage.getItem('ids'));
+    // Also set coutner to length of that array
+    counter = JSON.parse(localStorage.getItem('counter'));
+    // And show the counter on the page
+    $('.cartcount').html(counter);
+  }
+}
+
+function storeTaskInLocalStorage(id) {
+  if (!itemCart[id]) {
+    itemCart[id] = 1;
+    counter += 1;
+  } else {
+    counter += 1;
+    itemCart[id] += 1;
+  }
+  $('.cartcount').html(counter);
+}
+// Will take id for lookup
+function addItemsToTheCart() {
+  // add to cart coutner everytime item has been clicked
+  storeTaskInLocalStorage(this.parentNode.getAttribute('data-id'));
+}
+
 $(() => {
   // Smooth Scrolling
   $('.menu__selection__items__item a, .main-header__center__order a').on(
@@ -19,22 +59,14 @@ $(() => {
     }
   );
 
-  let counter = 0;
-  // Will take id for lookup
-  const arrayOfOrderInfo = [];
-  function addItemsToTheCart() {
-    // add to cart coutner everytime item has been clicked
-    counter += 1;
-    arrayOfOrderInfo.push(this.parentNode.getAttribute('data-id'));
-    $('.cartcount').html(counter);
-  }
-
   $('.nav__menu__item__link').click(e => {
     e.preventDefault();
+    localStorage.setItem('ids', JSON.stringify(itemCart));
+    localStorage.setItem('counter', JSON.stringify(counter));
     $.ajax({
       type: 'post',
       url: '/checkout',
-      data: { orderInfo: arrayOfOrderInfo },
+      data: itemCart,
       success: () => {
         window.location.href = 'http://localhost:8080/checkout';
       },
@@ -49,6 +81,24 @@ $(() => {
   // Remove elemet on checkout page
   $('.menu__item').on('click', 'a', function() {
     const toDoListItem = $(this).parent();
+    // removeTaskFromLocalStorage(this.parentNode.getAttribute('data-id'));
     toDoListItem.remove();
   });
+
+  // Remove from LS
+  function removeTaskFromLocalStorage(id) {
+    if (!itemCart[id]) {
+      itemCart[id] = 1;
+      counter += 1;
+    } else {
+      counter += 1;
+      itemCart[id] += 1;
+    }
+    // itemCart.forEach((id, index) => {
+    //   if (itemCart[index] === id) {
+    //     itemCart.splice(index, 0);
+    //   }
+    // });
+    localStorage.setItem('ids', JSON.stringify(itemCart));
+  }
 });
