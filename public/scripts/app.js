@@ -22,22 +22,6 @@ function getIds() {
   }
 }
 
-function storeTaskInLocalStorage(id) {
-  if (!itemCart[id]) {
-    itemCart[id] = 1;
-    counter += 1;
-  } else {
-    counter += 1;
-    itemCart[id] += 1;
-  }
-  $('.cartcount').html(counter);
-}
-// Will take id for lookup
-function addItemsToTheCart() {
-  // add to cart coutner everytime item has been clicked
-  storeTaskInLocalStorage(this.parentNode.getAttribute('data-id'));
-}
-
 $(() => {
   // Smooth Scrolling
   $('.menu__selection__items__item a, .main-header__center__order a').on(
@@ -73,41 +57,55 @@ $(() => {
     });
   });
 
+  function storeIdForTheCart(id) {
+    if (!itemCart[id]) {
+      itemCart[id] = 1;
+      counter += 1;
+    } else {
+      counter += 1;
+      itemCart[id] += 1;
+    }
+    $('.cartcount').html(counter);
+  }
+  // Will take id for lookup
+  function addItemsToTheCart() {
+    // add to cart coutner everytime item has been clicked
+    storeIdForTheCart(this.parentNode.getAttribute('data-id'));
+  }
+
   const buttons = document.querySelectorAll('.menu__item-add');
   buttons.forEach(button =>
     button.addEventListener('click', addItemsToTheCart)
   );
 
+  // Remove from LS
+  // function removeIdsFromLocalStorage(id) {
+  //   delete id;
+  // }
   // Remove elemet on checkout page
   $('.menu__item').on('click', 'a', function() {
-    const toDoListItem = $(this).parent();
+    const checkoutCart = $(this).parent();
     // removeTaskFromLocalStorage(this.parentNode.getAttribute('data-id'));
-    // toDoListItem.remove();
+    checkoutCart.remove();
   });
 
-  console.log(itemCart);
-  const addQty = id => {
-    // Lookup itemCart id
-    // const qty = itemCart[id];
-    // $('.counter').html(qty);
-    // $('.id').click(() => {
-    //   counter--;
-    //   $('.counter').html(counter);
-    // });
-    // $('').click(() => {
-    //   counter++;
-    //   $('.counter').html(counter);
-    // });
-    // id id="add"
-    // id id="subtract"
-    // this.parentNode.getAttribute('data-id')
+  const addQty = () => {
+    const itemId = this.parentNode.getAttribute('data-id');
+    if (itemCart[itemId]) {
+      itemCart[itemId] += 1;
+      counter += 1;
+    }
   };
+  const removeQty = () => {
+    const itemId = this.parentNode.getAttribute('data-id');
+    if (!itemCart[itemId]) {
+      itemCart[itemId] = 1;
+      counter = 1;
+    }
+  };
+  const addButtons = document.querySelectorAll('.addQty');
+  addButtons.forEach(button => button.addEventListener('click', addQty));
 
-  // Remove from LS
-  // function removeTaskFromLocalStorage(id) {
-  //   if (itemCart[id]) {
-  //     itemCart[id] -= 1;
-  //     counter -= 1;
-  //   }
-  // }
+  const minusButtons = document.querySelectorAll('.minusQty');
+  minusButtons.forEach(button => button.addEventListener('click', removeQty));
 });
