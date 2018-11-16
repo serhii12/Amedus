@@ -35,7 +35,7 @@ app.use(
 );
 
 // Seperated Routes for each Resource
-const usersRoutes = require('./routes/users');
+//const usersRoutes = require('./routes/users');
 const checkoutRoutes = require('./routes/checkout');
 
 
@@ -69,6 +69,7 @@ app.use('/checkout', checkoutRoutes(knex));
 
 // Home page, grabbing menu items from the db to our page
 app.get('/', (req, res) => {
+
   knex
     .select('*')
     .from('item')

@@ -4,10 +4,9 @@ const router = express.Router();
 
 module.exports = knex => {
 
+//itemlist is the info sent from the manu page
   router.get('/', (req, res) => {
-
     let itemList = [1,2,3,4,5];
-
     knex
     .select('*')
     .from('item')
@@ -23,6 +22,7 @@ module.exports = knex => {
   });
 
 //need to update the req.body.phone once the order confirmation is complete
+//ItemId is the info sent from the server
   router.post('/', (req, res) => {
 
     let itemList = [1,2,3,4,5];
