@@ -6,20 +6,25 @@
   <main class="cart">
     <section class="wrapper">
       <h1>Cart</h1>
+      <%cartItems.forEach( dish  => { %>
       <li class="menu__item">
         <a href='#' class="myLink">
           <i class='fa fa-times-circle'></i>
         </a>
         <div class="menu__item__heading">
-          <h2 class="menu__item-title">High Priest Burger</h2>
+          <h2 class="menu__item-title">
+            <%= dish.name %>
+          </h2>
           <span class="menu__item-price">
-            $10
+            $
+            <%= dish.price / 100 %>
           </span>
         </div>
         <p class="menu__item-description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Id perferendis totam, vel ab iusto non animi
+          <%= dish.description %>
         </p>
       </li>
+      <%}) %>
       <div class="total-price">
         <h3>Total Price: 0</h3>
       </div>

@@ -71,20 +71,6 @@ app.get('/checkout', (req, res) => {
   res.render('checkout');
 });
 
-// app.post('/checkout', (req, res) => {
-//   knex
-//     .select('*')
-//     .from('item')
-//     .catch(error => {
-//       console.error(error);
-//     })
-//     .then(results => {
-//       const templateVars = { results };
-//       console.log('RESULT WITH OBJECT', templateVars);
-//       res.render('checkout', results);
-//     });
-// });
-
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });

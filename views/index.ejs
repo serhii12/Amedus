@@ -70,7 +70,7 @@
 				<h4 class="menu__group-title">MOST POPULAR</h4>
 				<ul class="menu__items">
 					<%mainDishes.some((dish,index)  => { %>
-					<li class="menu__item">
+					<li class="menu__item" data-id="<%= dish.id %>">
 						<div class="menu__item__heading">
 							<h2 class="menu__item-title">
 								<%= dish.name %>
@@ -94,7 +94,7 @@
 				<h4 class="menu__group-title">MAIN</h4>
 				<ul class="menu__items">
 					<%mainDishes.forEach( dish  => { %>
-					<li class="menu__item">
+					<li class="menu__item" data-id="<%= dish.id %>">
 						<div class="menu__item__heading">
 							<h2 class="menu__item-title">
 								<%= dish.name %>
@@ -117,7 +117,7 @@
 				<h4 class="menu__group-title">SIDE</h4>
 				<ul class="menu__items">
 					<%sideDishes.forEach( dish  => { %>
-					<li class="menu__item">
+					<li class="menu__item" data-id="<%= dish.id %>">
 						<div class="menu__item__heading">
 							<h2 class="menu__item-title">
 								<%= dish.name %>
@@ -140,7 +140,7 @@
 				<h4 class="menu__group-title">DRINKS</h4>
 				<ul class="menu__items">
 					<%drinks.forEach( dish  => { %>
-					<li class="menu__item">
+					<li class="menu__item" data-id="<%= dish.id %>">
 						<div class="menu__item__heading">
 							<h2 class="menu__item-title">
 								<%= dish.name %>
