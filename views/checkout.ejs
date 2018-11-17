@@ -18,9 +18,7 @@
           </h2>
           <span class="menu__item-price">
             $
-            <span>
-              <%= dish.price / 100 * cartQty[dish.id] %>
-            </span>
+            <%= (dish.price / 100 * cartQty[dish.id]).toFixed(2) %>
           </span>
         </div>
         <p class="menu__item-description">
@@ -37,8 +35,7 @@
         </button>
       </li>
       <%}) %>
-      <% } else{ %>
-      <% console.log('empty')}%>
+      <% } %>
       <div class="total-price">
         <h3>Total Price: 0</h3>
       </div>
