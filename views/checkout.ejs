@@ -8,7 +8,7 @@
       <h1>Cart</h1>
       <% if(cartItems) {%>
       <%cartItems.forEach( dish  => { %>
-      <li class="menu__item">
+      <li class="menu__item" data-id="<%= dish.id %>">
         <a href='#' class="myLink">
           <i class='fa fa-times-circle'></i>
         </a>
@@ -18,12 +18,23 @@
           </h2>
           <span class="menu__item-price">
             $
-            <%= dish.price / 100 %>
+            <span>
+              <%= dish.price / 100 * cartQty[dish.id] %>
+            </span>
           </span>
         </div>
         <p class="menu__item-description">
           <%= dish.description %>
         </p>
+        <button class="minusQty">
+          <i class="fa fa-minus"></i>
+        </button>
+        <span class="<%=dish.id %>counter">
+          <%= cartQty[dish.id] %>
+        </span>
+        <button class="addQty">
+          <i class="fa fa-plus"></i>
+        </button>
       </li>
       <%}) %>
       <% } else{ %>
@@ -31,10 +42,10 @@
       <div class="total-price">
         <h3>Total Price: 0</h3>
       </div>
-<form method="POST" action="/checkout">
-  <input type="text" name="phone" placeholder="000-000-0000" style="font-size:15px; padding:6px;">
+      <form method="POST" action="/checkout">
+        <input type="text" name="phone" placeholder="000-000-0000" style="font-size:15px; padding:6px;">
 
-</form>
+      </form>
 
     </section>
   </main>

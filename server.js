@@ -5,14 +5,14 @@ const ENV = process.env.ENV || 'development';
 const express = require('express');
 const bodyParser = require('body-parser');
 const sass = require('node-sass-middleware');
-//might not need cookies
+// might not need cookies
 const cookieSession = require('cookie-session');
-
 
 const app = express();
 
 // Twilio setup
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
+
 const accountSid = 'ACfa1ca1e10683bd493f7fb5e71c3a4452';
 const authToken = '40ee1a3973fb5f2e8975aab954516a81';
 const client = require('twilio')(accountSid, authToken);
@@ -54,7 +54,6 @@ app.use(
   })
 );
 
-//do we need below if we are using templates and not a static page?
 app.use(express.static('public'));
 
 // Mount all resource routes
@@ -73,9 +72,46 @@ app.get('/', (req, res) => {
       const mainDishes = results.filter(element => element.section === 'main');
       const sideDishes = results.filter(element => element.section === 'side');
       const drinks = results.filter(element => element.section === 'drink');
-      const templateVar = { mainDishes, sideDishes, drinks };
+      const templateVar = {
+        mainDishes,
+        sideDishes,
+        drinks,
+        count: req.session.count || 0,
+      };
       res.render('index', templateVar);
     });
+});
+
+app.post('/addItem', (req, res) => {
+  const itemsQty = req.body.id;
+  req.session.items = req.session.items || {};
+  req.session.items[itemsQty] = req.session.items[itemsQty] || 0;
+  req.session.items[itemsQty] += 1;
+  req.session.count = req.session.count || 0;
+  req.session.count += 1;
+  res.json({ count: req.session.count, itemsQty: req.session.items[itemsQty] });
+});
+
+// add a post for removeItem
+app.post('/removeItem', (req, res) => {
+  const itemsQty = req.body.id;
+  req.session.items[itemsQty] -= 1;
+  req.session.count -= 1;
+  if (req.session.items[itemsQty] === 0) {
+    delete req.session.items[itemsQty];
+  }
+  res.json({
+    count: req.session.count,
+    itemsQty: req.session.items[itemsQty] || 0,
+  });
+});
+
+// removeElement
+app.post('/removeElement', (req, res) => {
+  const itemsQty = req.body.id;
+  req.session.count -= req.session.items[itemsQty];
+  delete req.session.items[itemsQty];
+  res.json({ count: req.session.count });
 });
 
 app.listen(PORT, () => {
