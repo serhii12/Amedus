@@ -1,7 +1,10 @@
 require('dotenv').config();
+// eslint-disable-next-line prefer-destructuring
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
+// eslint-disable-next-line prefer-destructuring
 const accountSid = process.env.accountSid;
+// eslint-disable-next-line prefer-destructuring
 const authToken = process.env.authToken;
 const client = require('twilio')(accountSid, authToken);
 
@@ -31,7 +34,6 @@ module.exports = knex => {
 
   router.post('/confirmation', (req, res) => {
     const itemList = Object.keys(req.session.cart);
-    console.log(itemList);
 
     // generating an order
     knex('order')
@@ -59,7 +61,7 @@ module.exports = knex => {
           .create({
             body: `Customer ${
               req.body.phone
-            } just placed an order.\nPickup is set to 15 minutes\nClick here view order or change time\nhttp://bit.ly/2qNy6Lm/${
+            } just placed an order.\nPickup is set to 15 minutes\nClick here view order or change time\nhttp://bit.ly/2K926u2/${
               results[0]
             }`,
             from: '+16474908806',
