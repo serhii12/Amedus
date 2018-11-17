@@ -4,7 +4,6 @@ const PORT = process.env.PORT || 8080;
 const ENV = process.env.ENV || 'development';
 const express = require('express');
 const bodyParser = require('body-parser');
-const sass = require('node-sass-middleware');
 // might not need cookies
 const cookieSession = require('cookie-session');
 
@@ -45,14 +44,6 @@ app.use(knexLogger(knex));
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  sass({
-    src: `${__dirname}/public/sass`,
-    dest: `${__dirname}/public/css`,
-    debug: true,
-    outputStyle: 'expanded',
-  })
-);
 
 app.use(express.static('public'));
 
