@@ -19,6 +19,15 @@ $(() => {
     }
   );
 
+  const form = $('.form-wrapper');
+  const confirmOrder = $('.btn-checkout');
+  // Hide form
+  form.hide();
+
+  confirmOrder.click(() => {
+    form.slideToggle();
+  });
+
   function storeIdForTheCart() {
     const id = this.parentNode.getAttribute('data-id');
     $.ajax({
@@ -98,4 +107,27 @@ $(() => {
 
   const minusButtons = document.querySelectorAll('.minusQty');
   minusButtons.forEach(button => button.addEventListener('click', removeQty));
+
+  const card = new Card({
+    form: 'form',
+    container: '.card-wrapper',
+
+    formSelectors: {
+      nameInput: 'input[name="first-name"], input[name="last-name"]',
+      numberInput: 'input[name="number"]',
+      expiryInput: 'input[name="expiry"]',
+      cvcInput: 'input[name="cvc"]',
+    },
+    width: 350, // optional — default 350px
+    // Default placeholders for rendered fields - optional
+    placeholders: {
+      number: '•••• •••• •••• ••••',
+      name: 'Full Name',
+      expiry: '••/••',
+      cvc: '•••',
+    },
+    masks: {
+      cardNumber: '•', // optional - mask card number
+    },
+  });
 });
