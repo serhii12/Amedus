@@ -156,8 +156,10 @@ app.get('/ordertime/:orderID', function(req, res) {
       console.error(error);
     })
     .then(itemIDs => {
-      const itemList = [1,2];
-
+      let itemList = [];
+      for (let i = 0; i < itemIDs.length; i++) {
+        itemList.push(itemIDs[i].item_id);
+      }
       knex
       .select('*')
       .from('item')
@@ -166,8 +168,7 @@ app.get('/ordertime/:orderID', function(req, res) {
         console.error(error);
       })
       .then(results => {
-        console.log(results);
-        const templateVars = {
+          const templateVars = {
           cartItems: results,
           phoneNumber: phone[0]["phone_number"],
           orderID: req.params.orderID
@@ -177,7 +178,6 @@ app.get('/ordertime/:orderID', function(req, res) {
     });
   });
 });
-
 
 
 app.post('/ordertime/:orderID', function(req, res) {
