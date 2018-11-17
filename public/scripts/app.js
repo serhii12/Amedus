@@ -25,7 +25,6 @@ $(() => {
   form.hide();
 
   confirmOrder.click(() => {
-    console.log('worked');
     form.slideToggle();
   });
 
