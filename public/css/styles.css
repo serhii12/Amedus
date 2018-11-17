@@ -526,6 +526,35 @@ a {
   display: inline-block;
 }
 
+.btn-checkout {
+  text-decoration: none;
+  padding: 10px 30px;
+  display: block;
+  width: 50%;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  border-radius: 100px;
+  border: 1px solid #2e4778;
+  color: #d9cb94;
+  -webkit-transition: background-color 1s;
+  transition: background-color 1s;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  -webkit-transition: all .15s ease-out;
+  transition: all .15s ease-out;
+}
+
+.btn-checkout:hover {
+  background: #212121;
+  color: #fff;
+  -webkit-transition: all .2s ease-in;
+  transition: all .2s ease-in;
+}
+
 section {
   padding: 140px 0;
 }
@@ -819,6 +848,56 @@ a {
 
 .wrapper .menu__item .myLink:hover {
   color: red;
+}
+
+.form-wrapper {
+  border: 1px solid #d9cb94;
+  width: 500px;
+  padding: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-height: 350px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  text-align: center;
+}
+
+.form-wrapper input, .form-wrapper textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e6e6e6;
+}
+
+.form-wrapper input.input--error, .form-wrapper textarea.input--error {
+  border-color: red;
+}
+
+.form-wrapper label {
+  padding: 10px 0;
+  display: block;
+}
+
+.form-wrapper .form {
+  background: white;
+  padding: 2rem;
+}
+
+.form-wrapper .form + .form {
+  margin-top: 4rem;
+}
+
+.form-wrapper .form h2 {
+  margin: 0;
+  font-size: 2rem;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e6e6e6;
 }
 
 .main-footer {
