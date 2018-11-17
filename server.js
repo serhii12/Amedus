@@ -83,27 +83,50 @@ app.get('/', (req, res) => {
 });
 
 app.post('/addItem', (req, res) => {
-  const itemsQty = req.body.id;
-  req.session.items = req.session.items || {};
-  req.session.items[itemsQty] = req.session.items[itemsQty] || 0;
-  req.session.items[itemsQty] += 1;
-  req.session.count = req.session.count || 0;
-  req.session.count += 1;
-  res.json({ count: req.session.count, itemsQty: req.session.items[itemsQty] });
+  const itemsIds = req.body.id;
+  knex
+    .select('*')
+    .from('item')
+    .where('id', itemsIds)
+    .catch(error => {
+      console.error(error);
+    })
+    .then(results => {
+      req.session.items = req.session.items || {};
+      req.session.items[itemsIds] = req.session.items[itemsIds] || 0;
+      req.session.items[itemsIds] += 1;
+      req.session.count = req.session.count || 0;
+      req.session.count += 1;
+      res.json({
+        unitPrice: results[0].price,
+        count: req.session.count,
+        itemsQty: req.session.items[itemsIds],
+      });
+    });
 });
 
 // add a post for removeItem
 app.post('/removeItem', (req, res) => {
-  const itemsQty = req.body.id;
-  req.session.items[itemsQty] -= 1;
-  req.session.count -= 1;
-  if (req.session.items[itemsQty] === 0) {
-    delete req.session.items[itemsQty];
-  }
-  res.json({
-    count: req.session.count,
-    itemsQty: req.session.items[itemsQty] || 0,
-  });
+  const itemsIds = req.body.id;
+  knex
+    .select('*')
+    .from('item')
+    .where('id', itemsIds)
+    .catch(error => {
+      console.error(error);
+    })
+    .then(results => {
+      req.session.items[itemsIds] -= 1;
+      req.session.count -= 1;
+      if (req.session.items[itemsIds] === 0) {
+        delete req.session.items[itemsIds];
+      }
+      res.json({
+        unitPrice: results[0].price,
+        count: req.session.count,
+        itemsQty: req.session.items[itemsIds] || 0,
+      });
+    });
 });
 
 // removeElement

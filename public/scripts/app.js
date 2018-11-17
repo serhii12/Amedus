@@ -19,7 +19,8 @@ $(() => {
     }
   );
 
-  function storeIdForTheCart(id) {
+  function storeIdForTheCart() {
+    const id = this.parentNode.getAttribute('data-id');
     $.ajax({
       type: 'post',
       url: '/addItem',
@@ -29,15 +30,10 @@ $(() => {
       },
     });
   }
-  // Will take id for lookup
-  function addItemsToTheCart() {
-    // add to cart coutner everytime item has been clicked
-    storeIdForTheCart(this.parentNode.getAttribute('data-id'));
-  }
 
   const buttons = document.querySelectorAll('.menu__item-add');
   buttons.forEach(button =>
-    button.addEventListener('click', addItemsToTheCart)
+    button.addEventListener('click', storeIdForTheCart)
   );
 
   // Remove from LS
@@ -46,14 +42,6 @@ $(() => {
     $.ajax({
       type: 'post',
       url: '/removeElement',
-      data: { id },
-    });
-  }
-
-  function removeIds(id) {
-    $.ajax({
-      type: 'post',
-      url: '/removeItem',
       data: { id },
     });
   }
@@ -70,14 +58,15 @@ $(() => {
     const elemenToChangePrice = $(this)
       .parent()
       .find(price);
-    console.log(elemenToChangePrice);
     $.ajax({
       type: 'post',
       url: '/addItem',
       data: { id: itemId },
       success(response) {
         $(`.${itemId}counter`).text(response.itemsQty);
-        elemenToChangePrice.text(`${elemenToChangePrice * response.itemsQty}`);
+        elemenToChangePrice.text(
+          `$${(response.itemsQty * (response.unitPrice / 100)).toFixed(2)}`
+        );
       },
     });
   }
@@ -85,16 +74,22 @@ $(() => {
   function removeQty() {
     const itemId = this.parentNode.getAttribute('data-id');
     const elementToRemove = $(this).parent();
+    const price = $('.menu__item-price');
+    const elemenToChangePrice = $(this)
+      .parent()
+      .find(price);
     $.ajax({
       type: 'post',
       url: '/removeItem',
       data: { id: itemId },
       success: response => {
         if (!response.itemsQty) {
-          removeIds(itemId);
           elementToRemove.remove();
         }
         $(`.${itemId}counter`).text(response.itemsQty);
+        elemenToChangePrice.text(`
+          $${(response.itemsQty * (response.unitPrice / 100)).toFixed(2)}
+        `);
       },
     });
   }
