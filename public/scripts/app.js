@@ -53,7 +53,7 @@ $(() => {
   function removeIds(id) {
     $.ajax({
       type: 'post',
-      url: '/removeElement',
+      url: '/removeItem',
       data: { id },
     });
   }
