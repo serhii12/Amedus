@@ -5,11 +5,6 @@ const ENV = process.env.ENV || 'development';
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const MessagingResponse = require('twilio').twiml.MessagingResponse;
-
-const accountSid = process.env.accountSid;
-const authToken = process.env.authToken;
-const client = require('twilio')(accountSid, authToken);
 
 const app = express();
 
@@ -30,10 +25,9 @@ app.use(
 
 // Seperated Routes for each Resource
 const checkoutRoutes = require('./routes/checkout');
+const cartRoutes = require('./routes/cart');
+const orderdisplayRoutes = require('./routes/orderdisplay');
 
-// Load the logger first so all (static) HTTP requests are logged to STDOUT
-// 'dev' = Concise output colored by response status for development use.
-//         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 
 // Log knex SQL queries to STDOUT as well
@@ -45,8 +39,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // Mount all resource routes
-// app.use('/api/users', usersRoutes(knex));
 app.use('/checkout', checkoutRoutes(knex));
+app.use('/cart', cartRoutes(knex));
+app.use('/orderdisplay', orderdisplayRoutes(knex));
 
 // Home page
 app.get('/', (req, res) => {
@@ -68,127 +63,6 @@ app.get('/', (req, res) => {
       };
       res.render('index', templateVar);
     });
-});
-
-app.post('/addItem', (req, res) => {
-  const itemID = req.body.id;
-  knex
-    .select('*')
-    .from('item')
-    .where('id', itemID)
-    .catch(error => {
-      console.error(error);
-    })
-    .then(results => {
-      req.session.cart = req.session.cart || {};
-      req.session.cart[itemID] = req.session.cart[itemID] || 0;
-      req.session.cart[itemID] += 1;
-      req.session.count = req.session.count || 0;
-      req.session.count += 1;
-      res.json({
-        unitPrice: results[0].price,
-        count: req.session.count,
-        itemQty: req.session.cart[itemID],
-      });
-    });
-});
-
-// add a post for removeItem
-app.post('/removeItem', (req, res) => {
-  const itemsIds = req.body.id;
-  knex
-    .select('*')
-    .from('item')
-    .where('id', itemsIds)
-    .catch(error => {
-      console.error(error);
-    })
-    .then(results => {
-      const itemID = req.body.id;
-      req.session.cart[itemID] -= 1;
-      req.session.count -= 1;
-      if (req.session.cart[itemID] === 0) {
-        delete req.session.cart[itemID];
-      }
-      res.json({
-        unitPrice: results[0].price,
-        count: req.session.count,
-        itemQty: req.session.cart[itemID] || 0,
-      });
-    });
-});
-
-// removeElement
-app.post('/removeElement', (req, res) => {
-  const itemID = req.body.id;
-  req.session.count -= req.session.cart[itemID];
-  delete req.session.cart[itemID];
-  res.json({ count: req.session.count });
-});
-
-app.get('/ordertime/:orderID', (req, res) => {
-  knex
-    .select('phone_number')
-    .from('order')
-    .where('id', req.params.orderID)
-    .catch(error => {
-      console.error(error);
-    })
-    .then(phone => {
-      knex
-        .select('item_id')
-        .from('orderitem')
-        .where('order_id', req.params.orderID)
-        .catch(error => {
-          console.error(error);
-        })
-        .then(itemIDs => {
-          const itemList = [];
-          for (let i = 0; i < itemIDs.length; i++) {
-            itemList.push(itemIDs[i].item_id);
-          }
-          knex
-            .select('*')
-            .from('item')
-            .whereIn('id', itemList)
-            .catch(error => {
-              console.error(error);
-            })
-            .then(results => {
-              const templateVars = {
-                cartItems: results,
-                phoneNumber: phone[0].phone_number,
-                orderID: req.params.orderID,
-              };
-              res.render('orderdisplay', templateVars);
-            });
-        });
-    });
-});
-
-app.post('/ordertime/:orderID', (req, res) => {
-  // sends a message to the customer with confirm order and time
-  let custMessage;
-  if (req.body.time !== 'cancel') {
-    custMessage = `Thank you 🦄.  Your order will be ready in ${
-      req.body.time
-    } minutes.  ${req.body.custommsg}`;
-  } else {
-    custMessage = `Sorry 😕.  Your order has been cancelled by the restaurant.  ${
-      req.body.custommsg
-    }`;
-  }
-
-  client.messages
-    .create({
-      body: custMessage,
-      // body: `Thank you 🦄.  Your order will be ready in ${req.body.time} minutes.`,
-      from: '+16474908806',
-      to: `'+1'${req.body.userphone}'`,
-      // to: `'+1'${req.body.userphone}'`
-    })
-    .then(message => console.log(message.sid))
-    .done();
 });
 
 app.listen(PORT, () => {

@@ -32,7 +32,7 @@ $(() => {
     const id = this.parentNode.getAttribute('data-id');
     $.ajax({
       type: 'post',
-      url: '/addItem',
+      url: 'cart/addItem',
       data: { id },
       success(response) {
         $('.cartcount').text(response.count);
@@ -48,7 +48,7 @@ $(() => {
   function removeElement(id) {
     $.ajax({
       type: 'post',
-      url: '/removeElement',
+      url: 'cart/removeElement',
       data: { id },
     });
   }
@@ -68,7 +68,7 @@ $(() => {
       .find(price);
     $.ajax({
       type: 'post',
-      url: '/addItem',
+      url: 'cart/addItem',
       data: { id: itemID },
       success(response) {
         $(`.${itemID}counter`).text(response.itemQty);
@@ -91,7 +91,7 @@ $(() => {
       .find(price);
     $.ajax({
       type: 'post',
-      url: '/removeItem',
+      url: 'cart/removeItem',
       data: { id: itemID },
       success: response => {
         if (!response.itemQty) {
@@ -113,7 +113,7 @@ $(() => {
     container: '.card-wrapper',
 
     formSelectors: {
-      nameInput: 'input[name="first-name"], input[name="last-name"]',
+      nameInput: 'input[name="firstname"], input[name="lastname"]',
       numberInput: 'input[name="number"]',
       expiryInput: 'input[name="expiry"]',
       cvcInput: 'input[name="cvc"]',

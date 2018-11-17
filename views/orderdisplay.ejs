@@ -5,9 +5,7 @@
 </head>
 
 <body>
-  This is where the restaurant will update the order.
-
-  <form action='/ordertime/8' method="POST">
+  <form action='orderdisplay/ordertime/<%=orderID%>' method="POST">
     <!-- we should insert user phone number at top of this page -->
     <h2>Order
       <%=orderID%> for:
@@ -31,8 +29,6 @@
       <textarea rows="2" cols="50" placeholder="Enter a short custom message..." name="custommsg"></textarea>
       <!-- THIS IS WHERE THE DB HAS TO FEED THE USER PHONE NUMBER INTO 'VALUE' -->
       <input type="hidden" name="userphone" value="4163578459">
-
-
     </div>
     <div>
       <button type="submit">Submit</button>
