@@ -5,15 +5,13 @@ const ENV = process.env.ENV || 'development';
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-
-const app = express();
-
-// Twilio setup
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
-const accountSid = 'ACfa1ca1e10683bd493f7fb5e71c3a4452';
-const authToken = '40ee1a3973fb5f2e8975aab954516a81';
+const accountSid = process.env.accountSid;
+const authToken = process.env.authToken;
 const client = require('twilio')(accountSid, authToken);
+
+const app = express();
 
 // eslint-disable-next-line import/order
 const knexConfig = require('./knexfile');
@@ -128,69 +126,70 @@ app.post('/removeElement', (req, res) => {
   res.json({ count: req.session.count });
 });
 
-
-app.get('/ordertime/:orderID', function(req, res) {
+app.get('/ordertime/:orderID', (req, res) => {
   knex
-  .select('phone_number')
-  .from('order')
-  .where('id', req.params.orderID)
-  .catch(error => {
-    console.error(error);
-  })
-  .then(phone => {
-    knex
-    .select('item_id')
-    .from('orderitem')
-    .where('order_id', req.params.orderID)
+    .select('phone_number')
+    .from('order')
+    .where('id', req.params.orderID)
     .catch(error => {
       console.error(error);
     })
-    .then(itemIDs => {
-      let itemList = [];
-      for (let i = 0; i < itemIDs.length; i++) {
-        itemList.push(itemIDs[i].item_id);
-      }
+    .then(phone => {
       knex
-      .select('*')
-      .from('item')
-      .whereIn('id', itemList)
-      .catch(error => {
-        console.error(error);
-      })
-      .then(results => {
-          const templateVars = {
-          cartItems: results,
-          phoneNumber: phone[0]["phone_number"],
-          orderID: req.params.orderID
-        }
-        res.render('orderdisplay', templateVars);
-      });
+        .select('item_id')
+        .from('orderitem')
+        .where('order_id', req.params.orderID)
+        .catch(error => {
+          console.error(error);
+        })
+        .then(itemIDs => {
+          const itemList = [];
+          for (let i = 0; i < itemIDs.length; i++) {
+            itemList.push(itemIDs[i].item_id);
+          }
+          knex
+            .select('*')
+            .from('item')
+            .whereIn('id', itemList)
+            .catch(error => {
+              console.error(error);
+            })
+            .then(results => {
+              const templateVars = {
+                cartItems: results,
+                phoneNumber: phone[0].phone_number,
+                orderID: req.params.orderID,
+              };
+              res.render('orderdisplay', templateVars);
+            });
+        });
     });
-  });
 });
 
-
-app.post('/ordertime/:orderID', function(req, res) {
-  //sends a message to the customer with confirm order and time
+app.post('/ordertime/:orderID', (req, res) => {
+  // sends a message to the customer with confirm order and time
   let custMessage;
-  if(req.body.time !== 'cancel') {
-    custMessage = `Thank you 🦄.  Your order will be ready in ${req.body.time} minutes.  ${req.body.custommsg}`
-    } else {
-       custMessage = `Sorry 😕.  Your order has been cancelled by the restaurant.  ${req.body.custommsg}`
-    };
+  if (req.body.time !== 'cancel') {
+    custMessage = `Thank you 🦄.  Your order will be ready in ${
+      req.body.time
+    } minutes.  ${req.body.custommsg}`;
+  } else {
+    custMessage = `Sorry 😕.  Your order has been cancelled by the restaurant.  ${
+      req.body.custommsg
+    }`;
+  }
 
   client.messages
-  .create({
-    body: custMessage,
-    // body: `Thank you 🦄.  Your order will be ready in ${req.body.time} minutes.`,
-    from: '+16474908806',
-    to: `'+1'${req.body.userphone}'`
-     // to: `'+1'${req.body.userphone}'`
-   })
-  .then(message => console.log(message.sid))
-  .done();
+    .create({
+      body: custMessage,
+      // body: `Thank you 🦄.  Your order will be ready in ${req.body.time} minutes.`,
+      from: '+16474908806',
+      to: `'+1'${req.body.userphone}'`,
+      // to: `'+1'${req.body.userphone}'`
+    })
+    .then(message => console.log(message.sid))
+    .done();
 });
-
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

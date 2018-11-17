@@ -1,43 +1,44 @@
-
 <html>
+
 <head>
   <title>Test page for Twilio order status</title>
 </head>
+
 <body>
-This is where the restaurant will update the order.
+  This is where the restaurant will update the order.
 
-<form action='/ordertime/8' method="POST">
-  <!-- we should insert user phone number at top of this page -->
-  <h2>Order <%=orderID%> for: <%=phoneNumber%></h2>
-  <strong>How long until the order is ready:</strong>
-  <div>
-    <input type="radio" id="timeChoice1"
-     name="time" value="5" >
-    <label for="timeChoice1">5 min</label>
+  <form action='/ordertime/8' method="POST">
+    <!-- we should insert user phone number at top of this page -->
+    <h2>Order
+      <%=orderID%> for:
+      <%=phoneNumber%>
+    </h2>
+    <strong>How long until the order is ready:</strong>
+    <div>
+      <input type="radio" id="timeChoice1" name="time" value="5">
+      <label for="timeChoice1">5 min</label>
 
-    <input type="radio" id="timeChoice2"
-     name="time" value="15" checked>
-    <label for="timeChoice2">15 min</label>
+      <input type="radio" id="timeChoice2" name="time" value="15" checked>
+      <label for="timeChoice2">15 min</label>
 
-    <input type="radio" id="timeChoice3"
-     name="time" value="30">
-    <label for="timeChoice3">30 min</label>
+      <input type="radio" id="timeChoice3" name="time" value="30">
+      <label for="timeChoice3">30 min</label>
 
-    <input type="radio" id="timeChoice4"
-     name="time" value="cancel">
-    <label for="timeChoice4">Cancel order</label>
-    <br>
+      <input type="radio" id="timeChoice4" name="time" value="cancel">
+      <label for="timeChoice4">Cancel order</label>
+      <br>
 
-    <textarea rows="2" cols="50" placeholder="Enter a short custom message..." name="custommsg"></textarea>
-    <!-- THIS IS WHERE THE DB HAS TO FEED THE USER PHONE NUMBER INTO 'VALUE' -->
-    <input type="hidden" name="userphone" value="4163578459">
+      <textarea rows="2" cols="50" placeholder="Enter a short custom message..." name="custommsg"></textarea>
+      <!-- THIS IS WHERE THE DB HAS TO FEED THE USER PHONE NUMBER INTO 'VALUE' -->
+      <input type="hidden" name="userphone" value="4163578459">
 
 
-   </div>
-  <div>
-    <button type="submit">Submit</button>
-  </div>
-</form>
+    </div>
+    <div>
+      <button type="submit">Submit</button>
+    </div>
+  </form>
 
 </body>
+
 </html>
