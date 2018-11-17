@@ -19,7 +19,8 @@ $(() => {
     }
   );
 
-  function storeIdForTheCart(id) {
+  function storeIdForTheCart() {
+    const id = this.parentNode.getAttribute('data-id');
     $.ajax({
       type: 'post',
       url: '/addItem',
@@ -30,14 +31,9 @@ $(() => {
     });
   }
 
-//there is a potential to get rid of this code and feed it to the function above
-  function addItemsToTheCart() {
-    storeIdForTheCart(this.parentNode.getAttribute('data-id'));
-  }
-
   const buttons = document.querySelectorAll('.menu__item-add');
   buttons.forEach(button =>
-    button.addEventListener('click', addItemsToTheCart)
+    button.addEventListener('click', storeIdForTheCart)
   );
 
   function removeElement(id) {
@@ -48,6 +44,7 @@ $(() => {
     });
   }
 
+  // Remove elemet on checkout page
   $('.menu__item').on('click', 'a', function() {
     const checkoutCart = $(this).parent();
     removeElement(this.parentNode.getAttribute('data-id'));
@@ -55,19 +52,20 @@ $(() => {
   });
 
   function addQty() {
-    const itemId = this.parentNode.getAttribute('data-id');
+    const itemID = this.parentNode.getAttribute('data-id');
     const price = $('.menu__item-price');
     const elemenToChangePrice = $(this)
       .parent()
       .find(price);
-    console.log(elemenToChangePrice);
     $.ajax({
       type: 'post',
       url: '/addItem',
-      data: { id: itemId },
+      data: { id: itemID },
       success(response) {
-        $(`.${itemId}counter`).text(response.itemQty);
-        elemenToChangePrice.text(`${elemenToChangePrice * response.itemQty}`);
+        $(`.${itemID}counter`).text(response.itemQty);
+        elemenToChangePrice.text(
+          `$${(response.itemQty * (response.unitPrice / 100)).toFixed(2)}`
+        );
       },
     });
   }
@@ -78,6 +76,10 @@ $(() => {
   function removeQty() {
     const itemID = this.parentNode.getAttribute('data-id');
     const elementToRemove = $(this).parent();
+    const price = $('.menu__item-price');
+    const elemenToChangePrice = $(this)
+      .parent()
+      .find(price);
     $.ajax({
       type: 'post',
       url: '/removeItem',
@@ -87,11 +89,13 @@ $(() => {
           elementToRemove.remove();
         }
         $(`.${itemID}counter`).text(response.itemQty);
+        elemenToChangePrice.text(`
+          $${(response.itemQty * (response.unitPrice / 100)).toFixed(2)}
+        `);
       },
     });
   }
 
   const minusButtons = document.querySelectorAll('.minusQty');
   minusButtons.forEach(button => button.addEventListener('click', removeQty));
-
 });
