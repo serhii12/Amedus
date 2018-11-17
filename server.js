@@ -128,6 +128,70 @@ app.post('/removeElement', (req, res) => {
   res.json({ count: req.session.count });
 });
 
+
+app.get('/ordertime/:orderID', function(req, res) {
+  knex
+  .select('phone_number')
+  .from('order')
+  .where('id', req.params.orderID)
+  .catch(error => {
+    console.error(error);
+  })
+  .then(phone => {
+    knex
+    .select('item_id')
+    .from('orderitem')
+    .where('order_id', req.params.orderID)
+    .catch(error => {
+      console.error(error);
+    })
+    .then(itemIDs => {
+      let itemList = [];
+      for (let i = 0; i < itemIDs.length; i++) {
+        itemList.push(itemIDs[i].item_id);
+      }
+      knex
+      .select('*')
+      .from('item')
+      .whereIn('id', itemList)
+      .catch(error => {
+        console.error(error);
+      })
+      .then(results => {
+          const templateVars = {
+          cartItems: results,
+          phoneNumber: phone[0]["phone_number"],
+          orderID: req.params.orderID
+        }
+        res.render('orderdisplay', templateVars);
+      });
+    });
+  });
+});
+
+
+app.post('/ordertime/:orderID', function(req, res) {
+  //sends a message to the customer with confirm order and time
+  let custMessage;
+  if(req.body.time !== 'cancel') {
+    custMessage = `Thank you 🦄.  Your order will be ready in ${req.body.time} minutes.  ${req.body.custommsg}`
+    } else {
+       custMessage = `Sorry 😕.  Your order has been cancelled by the restaurant.  ${req.body.custommsg}`
+    };
+
+  client.messages
+  .create({
+    body: custMessage,
+    // body: `Thank you 🦄.  Your order will be ready in ${req.body.time} minutes.`,
+    from: '+16474908806',
+    to: `'+1'${req.body.userphone}'`
+     // to: `'+1'${req.body.userphone}'`
+   })
+  .then(message => console.log(message.sid))
+  .done();
+});
+
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
