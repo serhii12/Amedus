@@ -2,11 +2,18 @@
 <body>
 
 <% var cart = Object.values(phoneNums) %>
+<% var keys = Object.keys(phoneNums) %>
+
 
 <% for(num in cart) { %>
-<%= cart[num] %>
+    <%= cart[num] %>
+    <form method="POST" action="/cart/delete">
+      <input type="submit" name="thing" value="remove">
+      <input type="hidden" name="item" value=<%=keys[num]%>>
+    </form>
 <br>
 <%}%>
+
 <br>
 <a href="/">Home</a>
 
