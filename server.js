@@ -156,11 +156,9 @@ app.get('/ordertime/:orderID', function(req, res) {
       console.error(error);
     })
     .then(results => {
-      console.log(phone);
-      console.log(results);
       const templateVars = {
         cartItems: results,
-        phoneNumber: phone,
+        phoneNumber: phone[0]["phone_number"],
         orderID: req.params.orderID
       };
       res.render('orderdisplay', templateVars);
