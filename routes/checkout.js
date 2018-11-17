@@ -18,7 +18,6 @@ module.exports = knex => {
       .then(results => {
         const templateVars = { cartItems: results, cartQty };
         res.render('checkout', templateVars);
-        // res.end();
       });
   });
   // router.get('/', (req, res) => {

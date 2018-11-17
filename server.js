@@ -72,22 +72,47 @@ app.get('/', (req, res) => {
       const mainDishes = results.filter(element => element.section === 'main');
       const sideDishes = results.filter(element => element.section === 'side');
       const drinks = results.filter(element => element.section === 'drink');
-      const templateVar = { mainDishes, sideDishes, drinks };
+      const templateVar = {
+        mainDishes,
+        sideDishes,
+        drinks,
+        count: req.session.count || 0,
+      };
       res.render('index', templateVar);
     });
 });
 
 app.post('/addItem', (req, res) => {
-  const itemId = req.body.id;
+  const itemsQty = req.body.id;
   req.session.items = req.session.items || {};
-  req.session.items[itemId] = req.session.items[itemId] || 0;
-  req.session.items[itemId] += 1;
-  // change this response to indicate the new value of the counter
-  res.json({ count: 1 });
+  req.session.items[itemsQty] = req.session.items[itemsQty] || 0;
+  req.session.items[itemsQty] += 1;
+  req.session.count = req.session.count || 0;
+  req.session.count += 1;
+  res.json({ count: req.session.count, itemsQty: req.session.items[itemsQty] });
 });
 
-// also add a GET route to send the data in the req.session.items
 // add a post for removeItem
+app.post('/removeItem', (req, res) => {
+  const itemsQty = req.body.id;
+  req.session.items[itemsQty] -= 1;
+  req.session.count -= 1;
+  if (req.session.items[itemsQty] === 0) {
+    delete req.session.items[itemsQty];
+  }
+  res.json({
+    count: req.session.count,
+    itemsQty: req.session.items[itemsQty] || 0,
+  });
+});
+
+// removeElement
+app.post('/removeElement', (req, res) => {
+  const itemsQty = req.body.id;
+  req.session.count -= req.session.items[itemsQty];
+  delete req.session.items[itemsQty];
+  res.json({ count: req.session.count });
+});
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
