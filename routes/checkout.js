@@ -6,8 +6,8 @@ module.exports = knex => {
   // let templateVars;
   // Ajax is sending the cart to the checkout page
   router.get('/', (req, res) => {
-    const itemList = Object.keys(req.session.items);
-    const cartQty = req.session.items;
+    const itemList = Object.keys(req.session.cart);
+    const cartQty = req.session.cart;
     knex
       .select('*')
       .from('item')

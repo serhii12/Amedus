@@ -29,9 +29,9 @@ $(() => {
       },
     });
   }
-  // Will take id for lookup
+
+//there is a potential to get rid of this code and feed it to the function above
   function addItemsToTheCart() {
-    // add to cart coutner everytime item has been clicked
     storeIdForTheCart(this.parentNode.getAttribute('data-id'));
   }
 
@@ -40,9 +40,7 @@ $(() => {
     button.addEventListener('click', addItemsToTheCart)
   );
 
-  // Remove from LS
   function removeElement(id) {
-    // change to ajax post to remove item
     $.ajax({
       type: 'post',
       url: '/removeElement',
@@ -50,14 +48,6 @@ $(() => {
     });
   }
 
-  function removeIds(id) {
-    $.ajax({
-      type: 'post',
-      url: '/removeElement',
-      data: { id },
-    });
-  }
-  // Remove elemet on checkout page
   $('.menu__item').on('click', 'a', function() {
     const checkoutCart = $(this).parent();
     removeElement(this.parentNode.getAttribute('data-id'));
@@ -76,31 +66,32 @@ $(() => {
       url: '/addItem',
       data: { id: itemId },
       success(response) {
-        $(`.${itemId}counter`).text(response.itemsQty);
-        elemenToChangePrice.text(`${elemenToChangePrice * response.itemsQty}`);
+        $(`.${itemId}counter`).text(response.itemQty);
+        elemenToChangePrice.text(`${elemenToChangePrice * response.itemQty}`);
       },
     });
   }
 
+  const addButtons = document.querySelectorAll('.addQty');
+  addButtons.forEach(button => button.addEventListener('click', addQty));
+
   function removeQty() {
-    const itemId = this.parentNode.getAttribute('data-id');
+    const itemID = this.parentNode.getAttribute('data-id');
     const elementToRemove = $(this).parent();
     $.ajax({
       type: 'post',
       url: '/removeItem',
-      data: { id: itemId },
+      data: { id: itemID },
       success: response => {
-        if (!response.itemsQty) {
-          removeIds(itemId);
+        if (!response.itemQty) {
           elementToRemove.remove();
         }
-        $(`.${itemId}counter`).text(response.itemsQty);
+        $(`.${itemID}counter`).text(response.itemQty);
       },
     });
   }
-  const addButtons = document.querySelectorAll('.addQty');
-  addButtons.forEach(button => button.addEventListener('click', addQty));
 
   const minusButtons = document.querySelectorAll('.minusQty');
   minusButtons.forEach(button => button.addEventListener('click', removeQty));
+
 });

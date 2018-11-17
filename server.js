@@ -62,7 +62,7 @@ app.use('/checkout', checkoutRoutes(knex));
 
 // Home page
 app.get('/', (req, res) => {
-  knex
+    knex
     .select('*')
     .from('item')
     .catch(error => {
@@ -83,34 +83,35 @@ app.get('/', (req, res) => {
 });
 
 app.post('/addItem', (req, res) => {
-  const itemsQty = req.body.id;
-  req.session.items = req.session.items || {};
-  req.session.items[itemsQty] = req.session.items[itemsQty] || 0;
-  req.session.items[itemsQty] += 1;
+  const itemID = req.body.id;
+  req.session.cart = req.session.cart || {};
+  req.session.cart[itemID] = req.session.cart[itemID] || 0;
+  req.session.cart[itemID] += 1;
   req.session.count = req.session.count || 0;
   req.session.count += 1;
-  res.json({ count: req.session.count, itemsQty: req.session.items[itemsQty] });
+  res.json({ count: req.session.count, itemQty: req.session.cart[itemID] });
 });
+
 
 // add a post for removeItem
 app.post('/removeItem', (req, res) => {
-  const itemsQty = req.body.id;
-  req.session.items[itemsQty] -= 1;
+  const itemID = req.body.id;
+  req.session.cart[itemID] -= 1;
   req.session.count -= 1;
-  if (req.session.items[itemsQty] === 0) {
-    delete req.session.items[itemsQty];
+  if (req.session.cart[itemID] === 0) {
+    delete req.session.cart[itemID];
   }
   res.json({
     count: req.session.count,
-    itemsQty: req.session.items[itemsQty] || 0,
+    itemQty: req.session.cart[itemID] || 0,
   });
 });
 
 // removeElement
 app.post('/removeElement', (req, res) => {
-  const itemsQty = req.body.id;
-  req.session.count -= req.session.items[itemsQty];
-  delete req.session.items[itemsQty];
+  const itemID = req.body.id;
+  req.session.count -= req.session.cart[itemID];
+  delete req.session.cart[itemID];
   res.json({ count: req.session.count });
 });
 
