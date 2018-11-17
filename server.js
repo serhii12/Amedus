@@ -149,22 +149,36 @@ app.get('/ordertime/:orderID', function(req, res) {
   })
   .then(phone => {
     knex
-    .select('*')
+    .select('item_id')
     .from('orderitem')
     .where('order_id', req.params.orderID)
     .catch(error => {
       console.error(error);
     })
-    .then(results => {
-      const templateVars = {
-        cartItems: results,
-        phoneNumber: phone[0]["phone_number"],
-        orderID: req.params.orderID
-      };
-      res.render('orderdisplay', templateVars);
+    .then(itemIDs => {
+      const itemList = [1,2];
+
+      knex
+      .select('*')
+      .from('item')
+      .whereIn('id', itemList)
+      .catch(error => {
+        console.error(error);
+      })
+      .then(results => {
+        console.log(results);
+        const templateVars = {
+          cartItems: results,
+          phoneNumber: phone[0]["phone_number"],
+          orderID: req.params.orderID
+        }
+        res.render('orderdisplay', templateVars);
+      });
     });
   });
 });
+
+
 
 app.post('/ordertime/:orderID', function(req, res) {
   //sends a message to the customer with confirm order and time
