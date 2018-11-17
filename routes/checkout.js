@@ -21,32 +21,31 @@ module.exports = knex => {
         res.render('checkout', templateVars);
       });
   });
-  // router.get('/', (req, res) => {
-  //   res.render('checkout', templateVars);
-  // });
 
-  // router.post('/confirm', (req, res) => {
-  //   let itemList = [1,2,3,4,5];
-  //     knex('order')
-  //     .insert({ phone_number: req.body.phone, status: "placed" })
-  //     .returning("id")
-  //     .catch(error => {
-  //       console.error(error);
-  //     })
-  //     .then(results => {
-  //       for (let item in itemList) {
-  //         knex('orderitem')
-  //         .insert({ order_id: results[0], item_id: item, quantity: 1 })
-  //         .catch(error => {
-  //           console.error(error);
-  //         })
-  //         .then(output => {
-  //           console.log("Data inserted", output);
-  //         });
-  //       }
-  //       const templateVars = { orderID: results[0] }
-  //     });
-  // });
+
+
+  router.post('/confirm', (req, res) => {
+    let itemList = [1,2,3,4,5];
+      knex('order')
+      .insert({ phone_number: req.body.phone, status: "placed" })
+      .returning("id")
+      .catch(error => {
+        console.error(error);
+      })
+      .then(results => {
+        for (let item in itemList) {
+          knex('orderitem')
+          .insert({ order_id: results[0], item_id: item, quantity: 1 })
+          .catch(error => {
+            console.error(error);
+          })
+          .then(output => {
+            console.log("Data inserted", output);
+          });
+        }
+        const templateVars = { orderID: results[0] }
+      });
+  });
 
   return router;
 };
