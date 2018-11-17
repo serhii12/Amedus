@@ -138,6 +138,28 @@ app.post('/removeElement', (req, res) => {
   res.json({ count: req.session.count });
 });
 
+app.post('/ordertime/:orderID', function(req, res) {
+  //sends a message to the customer with confirm order and time
+  let custMessage;
+  if(req.body.time !== 'cancel') {
+    custMessage = `Thank you 🦄.  Your order will be ready in ${req.body.time} minutes.  ${req.body.custommsg}`
+    } else {
+       custMessage = `Sorry 😕.  Your order has been cancelled by the restaurant.  ${req.body.custommsg}`
+    };
+
+  client.messages
+  .create({
+    body: custMessage,
+    // body: `Thank you 🦄.  Your order will be ready in ${req.body.time} minutes.`,
+    from: '+16474908806',
+    to: `'+1'${req.body.userphone}'`
+     // to: `'+1'${req.body.userphone}'`
+   })
+  .then(message => console.log(message.sid))
+  .done();
+});
+
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });

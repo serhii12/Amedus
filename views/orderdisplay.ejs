@@ -1,21 +1,43 @@
+
 <html>
 <head>
-  <title>Test page for Twilio inserts</title>
+  <title>Test page for Twilio order status</title>
 </head>
 <body>
-This is where it will happen.
+This is where the restaurant will update the order.
 
-    <main class="container">
-        <section>
-          <h2>Enter your phone number</h2>
-            <form action="/order/" method="POST">
-            <input type="tel" name="usrtel" placeholder="xxx-xxx-xxxx"><br>
-            <!--THIS IS WHERE THE ORDERID NEEDS TO BE FED INTO 'VALUE' AND WE APPEND TO URL IN PUT FOR SMS -->
-            <input type="hidden" name="orderid" value="orderidgood">
-            <input type="submit">
-            <span id="validnumber"></span>
-          </form>
-        </section>
-    </main>
+<form action='/ordertime/8' method="POST">
+  <!-- we should insert user phone number at top of this page -->
+  <h2>Order for:  416 357 8459</h2>
+  <strong>How long until the order is ready:</strong>
+  <div>
+    <input type="radio" id="timeChoice1"
+     name="time" value="5" >
+    <label for="timeChoice1">5 min</label>
+
+    <input type="radio" id="timeChoice2"
+     name="time" value="15" checked>
+    <label for="timeChoice2">15 min</label>
+
+    <input type="radio" id="timeChoice3"
+     name="time" value="30">
+    <label for="timeChoice3">30 min</label>
+
+    <input type="radio" id="timeChoice4"
+     name="time" value="cancel">
+    <label for="timeChoice4">Cancel order</label>
+    <br>
+
+    <textarea rows="2" cols="50" placeholder="Enter a short custom message..." name="custommsg"></textarea>
+    <!-- THIS IS WHERE THE DB HAS TO FEED THE USER PHONE NUMBER INTO 'VALUE' -->
+    <input type="hidden" name="userphone" value="4163578459">
+
+
+   </div>
+  <div>
+    <button type="submit">Submit</button>
+  </div>
+</form>
+
 </body>
 </html>
