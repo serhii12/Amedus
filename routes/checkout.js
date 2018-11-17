@@ -13,8 +13,6 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = knex => {
-  // let templateVars;
-  // Ajax is sending the cart to the checkout page
   router.get('/', (req, res) => {
     const itemList = Object.keys(req.session.cart);
     const cartQty = req.session.cart;
@@ -32,7 +30,7 @@ module.exports = knex => {
       });
   });
 
-  router.post('/confirmation', (req, res) => {
+  router.post('/', (req, res) => {
     const itemList = Object.keys(req.session.cart);
 
     // generating an order
@@ -59,7 +57,7 @@ module.exports = knex => {
         // sends a message to the restaurant with phone number of customer asks for time input
         client.messages
           .create({
-            body: `Customer ${
+            body: `Customer ${req.body.firstname} ${
               req.body.phone
             } just placed an order.\nPickup is set to 15 minutes\nClick here view order or change time\nhttp://bit.ly/2K926u2/${
               results[0]
@@ -73,9 +71,9 @@ module.exports = knex => {
         // sends a message to the customer thanking them for their order
         client.messages
           .create({
-            body:
-              "Thank you for your order 🕷.  We'll send a pickup time shortly",
-            // body: `Thanks for your order from RESTAURANT...it  will be ready for pickup in 15 minutes.`,
+            body: `${
+              req.body.firstname
+            } thank you for your order 🕷.  We'll send a pickup time shortly`,
             from: '+16474908806',
             to: `'+1'${req.body.phone}'`,
           })

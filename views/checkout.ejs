@@ -42,22 +42,22 @@
       </div>
       <button class="btn-checkout">Confirm Order</button>
       <div class="form-wrapper">
-        <form class="form" action="/checkout/confirmation" method="POST">
+        <form class="form" action="/checkout" method="POST">
           <h2>Confirm Order</h2>
           <label for="password">Phone number</label>
           <input type="tel" id="phone" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required>
           <label for="card">Credit Cart</label>
           <div class='card-wrapper'></div>
           <label for="card">Credit number</label>
-          <input type="text" name="number" placeholder="number">
+          <input type="text" name="number" placeholder="number" required>
           <label for="card">First Name</label>
-          <input type="text" name="first-name" placeholder="first name" />
+          <input type="text" name="firstname" placeholder="first name" required/>
           <label for="card">Last Name</label>
-          <input type="text" name="last-name" placeholder="last name" />
+          <input type="text" name="lastname" placeholder="last name" required/>
           <label for="card">Expiry date</label>
-          <input type="text" name="expiry" placeholder="expiry date" />
+          <input type="text" name="expiry" placeholder="expiry date" required/>
           <label for="card">CVC</label>
-          <input type="text" name="cvc" placeholder="cvc" />
+          <input type="text" name="cvc" placeholder="cvc" required/>
           <input class="button" type="submit" value="Confirm Order →" />
         </form>
       </div>
