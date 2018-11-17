@@ -138,6 +138,36 @@ app.post('/removeElement', (req, res) => {
   res.json({ count: req.session.count });
 });
 
+
+app.get('/ordertime/:orderID', function(req, res) {
+  knex
+  .select('phone_number')
+  .from('order')
+  .where('id', req.params.orderID)
+  .catch(error => {
+    console.error(error);
+  })
+  .then(phone => {
+    knex
+    .select('*')
+    .from('orderitem')
+    .where('order_id', req.params.orderID)
+    .catch(error => {
+      console.error(error);
+    })
+    .then(results => {
+      console.log(phone);
+      console.log(results);
+      const templateVars = {
+        cartItems: results,
+        phoneNumber: phone,
+        orderID: req.params.orderID
+      };
+      res.render('orderdisplay', templateVars);
+    });
+  });
+});
+
 app.post('/ordertime/:orderID', function(req, res) {
   //sends a message to the customer with confirm order and time
   let custMessage;
