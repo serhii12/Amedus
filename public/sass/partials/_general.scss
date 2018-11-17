@@ -5,6 +5,29 @@
   display: inline-block;
 }
 
+.btn-checkout {
+  text-decoration: none;
+  padding: 10px 30px;
+  display: block;
+  width: 50%;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  align-self: center;
+  border-radius: 100px;
+  border: 1px solid $color__secondary--light-blue;
+  color: $color__primary;
+  transition: background-color 1s;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  transition: all .15s ease-out;
+    &:hover {
+      background: $color__secondary;
+      color: #fff;
+      transition: all .2s ease-in;
+    }
+}
+
 section {
   padding: 140px 0;
 }

@@ -6,6 +6,7 @@
   <main class="cart">
     <section class="wrapper">
       <h1>Cart</h1>
+      <a href="/" class="btn-checkout">Continue Shopping</a>
       <% if(cartItems) {%>
       <%cartItems.forEach( dish  => { %>
       <li class="menu__item" data-id="<%= dish.id %>">
@@ -39,10 +40,27 @@
       <div class="total-price">
         <h3>Total Price: 0</h3>
       </div>
-      <form method="POST" action="/checkout">
-        <input type="text" name="phone" placeholder="000-000-0000" style="font-size:15px; padding:6px;">
-      </form>
-
+      <button class="btn-checkout">Confirm Order</button>
+      <div class="form-wrapper">
+        <form class="form" action="/checkout/confirmation" method="POST">
+          <h2>Confirm Order</h2>
+          <label for="password">Phone number</label>
+          <input type="tel" id="phone" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required>
+          <label for="card">Credit Cart</label>
+          <div class='card-wrapper'></div>
+          <label for="card">Credit number</label>
+          <input type="text" name="number" placeholder="number">
+          <label for="card">First Name</label>
+          <input type="text" name="first-name" placeholder="first name" />
+          <label for="card">Last Name</label>
+          <input type="text" name="last-name" placeholder="last name" />
+          <label for="card">Expiry date</label>
+          <input type="text" name="expiry" placeholder="expiry date" />
+          <label for="card">CVC</label>
+          <input type="text" name="cvc" placeholder="cvc" />
+          <input class="button" type="submit" value="Confirm Order →" />
+        </form>
+      </div>
     </section>
   </main>
   <% include partials/_footer %>
