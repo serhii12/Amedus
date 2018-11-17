@@ -66,12 +66,18 @@ $(() => {
 
   function addQty() {
     const itemId = this.parentNode.getAttribute('data-id');
+    const price = $('.menu__item-price');
+    const elemenToChangePrice = $(this)
+      .parent()
+      .find(price);
+    console.log(elemenToChangePrice);
     $.ajax({
       type: 'post',
       url: '/addItem',
       data: { id: itemId },
       success(response) {
         $(`.${itemId}counter`).text(response.itemsQty);
+        elemenToChangePrice.text(`${elemenToChangePrice * response.itemsQty}`);
       },
     });
   }
