@@ -77,15 +77,21 @@ Important folders and files are indicated in the tree diagram below:
 Homescreen:
 ![alt text](public/assets/screenshots/mainscreen.png)
 
-Ready for tweet:
-![alt text](public/screenshots/readyfortweet.png)
+Menu:
+![alt text](public/assets/screenshots/mainscreen.png)
 
-User attempts to tweet with no text:
+Cart with dynamic pricing changes:
+![alt text](public/assets/screenshots/mainscreen.png)
 
-![alt text](public/screenshots/blanktweet.png)
+Initial SMS to user(customer) and restaurant:
+![alt text](public/assets/screenshots/initialsms.png)
 
-User attempts to tweet with more than 140 characters:
+Order page where restaurant can set pickup time and custom message:
+![alt text](public/assets/screenshots/orderandtimeset.png)
 
-![alt text](public/screenshots/longtweet.png)
+Final SMS to user indicating time for pickup:
+![alt text](public/assets/screenshots/timesenttouser.png)
+
+
 
 
