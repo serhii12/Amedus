@@ -74,24 +74,24 @@ Important folders and files are indicated in the tree diagram below:
   </ul>
 </ul>
 
-Homescreen:
+### Homescreen:
 ![alt text](public/assets/screenshots/mainscreen.png)
 
-Menu:
+### Menu:
 ![alt text](public/assets/screenshots/menu.png)
 
-Cart with dynamic pricing changes:
+### Cart with dynamic pricing changes:
 ![alt text](public/assets/screenshots/cart.png)
 
-Initial SMS to user(customer) and restaurant:
+### Initial SMS to user(customer) and restaurant:
 
 ![alt text](public/assets/screenshots/initialsms.png)
 
-Order page where restaurant can set pickup time and custom message:
+### Order page where restaurant can set pickup time and custom message:
 
 ![alt text](public/assets/screenshots/orderandtimeset.png)
 
-Final SMS to user indicating time for pickup:
+### Final SMS to user indicating time for pickup:
 
 ![alt text](public/assets/screenshots/timesenttouser.png)
 
