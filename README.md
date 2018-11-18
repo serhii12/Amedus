@@ -78,10 +78,10 @@ Homescreen:
 ![alt text](public/assets/screenshots/mainscreen.png)
 
 Menu:
-![alt text](public/assets/screenshots/mainscreen.png)
+![alt text](public/assets/screenshots/menu.png)
 
 Cart with dynamic pricing changes:
-![alt text](public/assets/screenshots/mainscreen.png)
+![alt text](public/assets/screenshots/cart.png)
 
 Initial SMS to user(customer) and restaurant:
 ![alt text](public/assets/screenshots/initialsms.png)
