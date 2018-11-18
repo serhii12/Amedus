@@ -28,9 +28,9 @@ module.exports = knex => {
         for (let i = 0; i < results.length; i++) {
           if (cartQty[results[i].id]) {
             total += (cartQty[results[i].id] * results[i].price)
-            console.log ("total", total)
           }
         }
+        console.log ("total", total)
         const templateVars = { cartItems: results, cartQty, total};
         res.render('checkout', templateVars);
       });
