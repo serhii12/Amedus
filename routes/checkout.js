@@ -59,7 +59,7 @@ module.exports = knex => {
           .create({
             body: `Customer ${req.body.firstname} ${
               req.body.phone
-            } just placed an order.\nPickup is set to 15 minutes\nClick here view order or change time\nhttp://bit.ly/2K926u2/${
+            } just placed an order.\nPickup is set to 15 minutes\nClick here view order or change time\nhttp://bit.ly/2K926u2/orderdisplay/${
               results[0]
             }`,
             from: '+16474908806',
@@ -81,9 +81,7 @@ module.exports = knex => {
           .done();
 
         // server sends back the orderID for the thank you for your order message
-        res.json({
-          OrderID: results[0],
-        });
+        // res.clearCookie();
       });
   });
   return router;
