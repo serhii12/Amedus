@@ -22,7 +22,16 @@ Users are provided a menu of items to add to a shopping cart.  They may remove i
 
 ## Getting Started
 
-S...please fill this in ....what you need to do to run it...migration...npm run local etc.
+1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
+2. Update the .env file with your correct local information
+3. Install dependencies: `npm i`
+4. Run migrations: `npm run knex migrate:latest`
+  - Check the migrations folder to see what gets created in the DB
+5. Run the seed: `npm run knex seed:run`
+  - Check the seeds file to see what gets seeded in the DB
+6. Run the  server: `node server.js`
+7. Visit `http://localhost:8080/`
+8. Enjoy!
 
 ## Functionality
 

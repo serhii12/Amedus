@@ -29,7 +29,6 @@ module.exports = knex => {
             console.error(error);
           })
           .then(itemIDs => {
-            console.log('ITEMS IDS:', itemIDs);
             const itemList = [];
             for (let i = 0; i < itemIDs.length; i++) {
               itemList.push(itemIDs[i].item_id);

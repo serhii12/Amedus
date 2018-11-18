@@ -24,7 +24,6 @@ module.exports = knex => {
         console.error(error);
       })
       .then(results => {
-        console.log(results);
         const templateVars = { cartItems: results, cartQty };
         res.render('checkout', templateVars);
       });
