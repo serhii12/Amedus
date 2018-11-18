@@ -26,22 +26,30 @@ S...please fill this in ....what you need to do to run it...migration...npm run 
 
 ## Functionality
 
-Main menu page:
+Main menu page (/)...customer can:
 - add an item to cart
 - cart changes dynamically
 - click cart to go to cart page
 
-Cart page:
+Cart page (/checkout)...customer can:
 - view all items in cart
 - add or reduce quantity of a particular item in cart
 - remove an item from cart
-- proceed to checkout
 - return to menu to add more items
 
-Checkout page: 
+SMS: upon confirmation of an order:
+- SMS sent to customer thanking them and telling them a pickup time will be sent
+- SMS sent to restuarant with link to order to view order, set pickup time, cancel order and set an optional custom message
 
+Order and time for pickup page (/ordertime)...restaurant owner can: 
+- view username, phone number of customer who ordered
+- see all items and total cost of order
+- select 5, 15, 30 minutes OR cancel order
+- provide an optional custom message
 
-
+SMS: upon restaurant owner selecting a time or cancelling order
+- customer is informed of pickup time OR order has been cancelled
+- customer recieves any custom message created by restuarant
 
 
 ## File Structure
