@@ -7,13 +7,18 @@ Users are provided a menu of items to add to a shopping cart.  They may remove i
 
 ## Dependencies
 
-  - Node 5.10.x or above
-  - NPM 3.8.x or above
-  - body-parser": "^1.18.3",
-  - chance": "^1.0.16",
-  - express": "^4.16.4",
-  - md5": "^2.2.1",
-  - mongodb": "^2.2.36"
+  - body-parser 1.15.2
+  - card 2.4.0
+  - cookie-session 2.0.0-beta.3
+  - dotenv 2.0.0
+  - ejs 2.4.1
+  - express 4.13.4
+  - knex 0.11.7
+  - knex-logger 0.1.0
+  - morgan 1.7.0
+  - node-sass-middleware 0.9.8
+  - pg 6.0.2
+  - twilio 3.23.2
 
 ## Getting Started
 
@@ -21,9 +26,6 @@ Users are provided a menu of items to add to a shopping cart.  They may remove i
 
 The user clicks the 'Order Now' button in the center of the page scrolls down to a menu.  User can .  If the form field exceeds 140 characters the counter moves past zero to negative numbers and the counter color changes color to red.
 
-There are two error messages possible:
-- Blank field: error message warns user that they cannot submit a blank tweet and nothing is submitted to database
-- Greater than 140 characters: error message warns user that tweet is too large and nothing is submitted to database
 
 A succesful tweet submission immediately:
 - publishes the tweet below the form
@@ -32,28 +34,43 @@ A succesful tweet submission immediately:
 
 ## File Structure
 
+Important folders and files are indicated in the tree diagram below:
+
+
 <ul>
-  <li>/Tweeter</li>
+  <li>/Amedus</li>
   <ul>
+    <li>/db</li>
+    <ul>
+      <li>/migrations: contains graphics and screenshots</li>
+      <li>/seeds: app.js is main file driving tweet display</li>
+    </ul>
     <li>/public</li>
     <ul>
-      <li>/images: contains graphics and screenshots</li>
-      <li>/scripts: app.js is main file driving tweet display <b>important</b></li>
-      <li>/styles: css for nav and main screen <b>important</b></li>
+      <li>/assets: contains graphics and screenshots</li>
+      <li>/css: app.js is main file driving tweet display </li>
+      <li>/dist: css for nav and main screen </li>
+      <li>/saas: provided...not relevant</li>
+      <li>/scripts: css for nav and main screen </li>
       <li>/vendor: provided...not relevant</li>
-      <li>index.html: single app web page</li>
-      <li>date.js: small function to determine 'days since' tweet</li>
     </ul>
-    <li>/server</li>
+    <li>/routes</li>
     <ul>
-      <li>/data-files: original .json file for testing purposes</li>
-      <li>/lib</li>
-      <li>/routes: data-helpers.js file interacts with mongoDB <b>important</b></li>
-      <li>index.js: runs the express (server) and connection to DB <b>important</b></li>
+      <li>cart.js: </li>
+      <li>checkout.js:</li>
+      <li>orderdisplay.js:</li>
     </ul>
-    <li>/node_modules</li>
-    <li>package.json</li>
+    <li>/views</li>
+    <ul>
+      <li>/partials: </li>
+      <li>checkout.ejs</li>
+      <li>index.ejs: </li>
+      <li>orderdisplay.ejs: </li>
+    </ul>
     <li>README.md</li>
+    <li>knexfile.js</li>
+    <li>package.json</li>
+    <li>server.js</li>
   </ul>
 </ul>
 
