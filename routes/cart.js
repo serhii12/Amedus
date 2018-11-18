@@ -8,45 +8,59 @@ module.exports = knex => {
     knex
       .select('*')
       .from('item')
-      .where('id', itemID)
       .catch(error => {
         console.error(error);
       })
       .then(results => {
+        console.log(results)
         req.session.cart = req.session.cart || {};
         req.session.cart[itemID] = req.session.cart[itemID] || 0;
         req.session.cart[itemID] += 1;
         req.session.count = req.session.count || 0;
         req.session.count += 1;
+        let total = 0;
+        results.forEach(function(item) {
+          if (req.session.cart[item.id]) {
+            total += (req.session.cart[item.id] * item.price)
+          }
+        })
+        console.log ("total for add item", total)
         res.json({
-          unitPrice: results[0].price,
+          unitPrice: results[itemID-1].price,
           count: req.session.count,
           itemQty: req.session.cart[itemID],
+          total
         });
       });
   });
 
   // add a post for removeItem
   router.post('/removeItem', (req, res) => {
-    const itemsIds = req.body.id;
+    const itemID = req.body.id;
     knex
       .select('*')
       .from('item')
-      .where('id', itemsIds)
       .catch(error => {
         console.error(error);
       })
       .then(results => {
-        const itemID = req.body.id;
         req.session.cart[itemID] -= 1;
         req.session.count -= 1;
         if (req.session.cart[itemID] === 0) {
           delete req.session.cart[itemID];
         }
+         let total = 0;
+        results.forEach(function(item) {
+          if (req.session.cart[item.id]) {
+            total += (req.session.cart[item.id] * item.price)
+          }
+        })
+        console.log ("total for remove item", total)
         res.json({
           unitPrice: results[0].price,
           count: req.session.count,
           itemQty: req.session.cart[itemID] || 0,
+          total
         });
       });
   });
@@ -54,9 +68,26 @@ module.exports = knex => {
   // removeElement
   router.post('/removeElement', (req, res) => {
     const itemID = req.body.id;
-    req.session.count -= req.session.cart[itemID];
-    delete req.session.cart[itemID];
-    res.json({ count: req.session.count });
-  });
+    knex
+      .select('*')
+      .from('item')
+      .catch(error => {
+        console.error(error);
+      })
+      .then(results => {
+       req.session.count -= req.session.cart[itemID];
+        delete req.session.cart[itemID];
+        let total = 0;
+        results.forEach(function(item) {
+          if (req.session.cart[item.id]) {
+            total += (req.session.cart[item.id] * item.price)
+          }
+        })
+        console.log ("total for remove removeElement", total)
+        res.json({ count: req.session.count, total });
+      });
+    });
+
   return router;
+
 };

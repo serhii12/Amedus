@@ -15,7 +15,6 @@ const router = express.Router();
 module.exports = knex => {
   router.get('/', (req, res) => {
     const itemList = Object.keys(req.session.cart);
-    const cartQty = req.session.cart;
     knex
       .select('*')
       .from('item')
@@ -24,7 +23,14 @@ module.exports = knex => {
         console.error(error);
       })
       .then(results => {
-        const templateVars = { cartItems: results, cartQty };
+        let total = 0;
+        results.forEach(function(item) {
+          if (req.session.cart[item.id]) {
+            total += (req.session.cart[item.id] * item.price)
+          }
+        })
+        console.log ("total", total)
+        const templateVars = { cartItems: results, cartQty: req.session.cart, total};
         res.render('checkout', templateVars);
       });
   });
