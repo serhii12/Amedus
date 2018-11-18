@@ -38,8 +38,9 @@
       <%}) %>
       <% } %>
       <div class="total-price">
-        <h3>Total Price:
-          <span class="total-js"><%= total %></span>
+        <h3>Total Price: $
+          <span class="total-js">
+            <%= (total / 100).toFixed(2) %></span>
         </h3>
       </div>
       <button class="btn-checkout">Confirm Order</button>

@@ -12,24 +12,23 @@ module.exports = knex => {
         console.error(error);
       })
       .then(results => {
-        console.log(results)
+        console.log(results);
         req.session.cart = req.session.cart || {};
         req.session.cart[itemID] = req.session.cart[itemID] || 0;
         req.session.cart[itemID] += 1;
         req.session.count = req.session.count || 0;
         req.session.count += 1;
         let total = 0;
-        results.forEach(function(item) {
+        results.forEach(item => {
           if (req.session.cart[item.id]) {
-            total += (req.session.cart[item.id] * item.price)
+            total += req.session.cart[item.id] * item.price;
           }
-        })
-        console.log ("total for add item", total)
+        });
         res.json({
-          unitPrice: results[itemID-1].price,
+          unitPrice: results[itemID - 1].price,
           count: req.session.count,
           itemQty: req.session.cart[itemID],
-          total
+          total,
         });
       });
   });
@@ -49,18 +48,17 @@ module.exports = knex => {
         if (req.session.cart[itemID] === 0) {
           delete req.session.cart[itemID];
         }
-         let total = 0;
-        results.forEach(function(item) {
+        let total = 0;
+        results.forEach(item => {
           if (req.session.cart[item.id]) {
-            total += (req.session.cart[item.id] * item.price)
+            total += req.session.cart[item.id] * item.price;
           }
-        })
-        console.log ("total for remove item", total)
+        });
         res.json({
-          unitPrice: results[0].price,
+          unitPrice: results[itemID - 1].price,
           count: req.session.count,
           itemQty: req.session.cart[itemID] || 0,
-          total
+          total,
         });
       });
   });
@@ -75,19 +73,17 @@ module.exports = knex => {
         console.error(error);
       })
       .then(results => {
-       req.session.count -= req.session.cart[itemID];
+        req.session.count -= req.session.cart[itemID];
         delete req.session.cart[itemID];
         let total = 0;
-        results.forEach(function(item) {
+        results.forEach(item => {
           if (req.session.cart[item.id]) {
-            total += (req.session.cart[item.id] * item.price)
+            total += req.session.cart[item.id] * item.price;
           }
-        })
-        console.log ("total for remove removeElement", total)
+        });
         res.json({ count: req.session.count, total });
       });
-    });
+  });
 
   return router;
-
 };

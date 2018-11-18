@@ -24,13 +24,16 @@ module.exports = knex => {
       })
       .then(results => {
         let total = 0;
-        results.forEach(function(item) {
+        results.forEach(item => {
           if (req.session.cart[item.id]) {
-            total += (req.session.cart[item.id] * item.price)
+            total += req.session.cart[item.id] * item.price;
           }
-        })
-        console.log ("total", total)
-        const templateVars = { cartItems: results, cartQty: req.session.cart, total};
+        });
+        const templateVars = {
+          cartItems: results,
+          cartQty: req.session.cart,
+          total,
+        };
         res.render('checkout', templateVars);
       });
   });

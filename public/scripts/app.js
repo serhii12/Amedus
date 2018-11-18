@@ -61,10 +61,6 @@ $(() => {
   });
 
   const totalPrice = $('.total-js');
-  const allOfMenuPrices = document.querySelectorAll('.menu__item-price');
-  allOfMenuPrices.forEach(element => {
-    totalPrice.text(Number(element.textContent.split('$').join('')));
-  });
 
   function addQty() {
     const itemID = this.parentNode.getAttribute('data-id');
@@ -81,6 +77,7 @@ $(() => {
         elemenToChangePrice.text(
           `$${(response.itemQty * (response.unitPrice / 100)).toFixed(2)}`
         );
+        totalPrice.text((response.total / 100).toFixed(2));
       },
     });
   }
@@ -99,7 +96,7 @@ $(() => {
       type: 'post',
       url: 'cart/removeItem',
       data: { id: itemID },
-      success: response => {
+      success(response) {
         if (!response.itemQty) {
           elementToRemove.remove();
         }
@@ -107,6 +104,7 @@ $(() => {
         elemenToChangePrice.text(`
           $${(response.itemQty * (response.unitPrice / 100)).toFixed(2)}
         `);
+        totalPrice.text((response.total / 100).toFixed(2));
       },
     });
   }
