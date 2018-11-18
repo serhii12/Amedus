@@ -1,40 +1,62 @@
-<html>
-
-<head>
-  <title>Test page for Twilio order status</title>
-</head>
+<!DOCTYPE html>
+<html lang="en">
+<% include partials/_head %>
 
 <body>
-  <form action='orderdisplay/ordertime/<%=orderID%>' method="POST">
-    <!-- we should insert user phone number at top of this page -->
-    <h2>Order
-      <%=orderID%> for:
-      <%=phoneNumber%>
-    </h2>
-    <strong>How long until the order is ready:</strong>
-    <div>
-      <input type="radio" id="timeChoice1" name="time" value="5">
-      <label for="timeChoice1">5 min</label>
+  <main class="cart">
+    <section class="wrapper">
+      <h1>Order ID:
+        #
+        <%=orderID%>
+      </h1>
+      <h3>
+        Phone Number:
+        <%=phoneNumber%>
+      </h3>
+      <h3>
+        Order Info:
+      </h3>
+      <%cartItems.forEach( (dish,index)  => { %>
+      <li class="menu__item" data-id="<%= dish.id %>">
+        <div class="menu__item__heading">
+          <h2 class="menu__item-title">
+            <%= dish.name %>
+          </h2>
 
-      <input type="radio" id="timeChoice2" name="time" value="15" checked>
-      <label for="timeChoice2">15 min</label>
+          <span class="menu__item-price">
+            $
+            <%= (dish.price / 100 * qty[index].quantity).toFixed(2) %>
+          </span>
+        </div>
+        <p class="menu__item-description">
+          quanity:
+          <%= qty[index].quantity %>
+        </p>
+        </div>
+      </li>
+      <%}) %>
+      <div class="form-wrapper">
+        <form action='orderdisplay/ordertime/<%=orderID%>' method="POST">
+          <strong>How long until the order is ready:</strong>
+          <label for="timeChoice1">5 min</label>
+          <input type="radio" id="timeChoice1" name="time" value="5">
 
-      <input type="radio" id="timeChoice3" name="time" value="30">
-      <label for="timeChoice3">30 min</label>
+          <label for="timeChoice2">15 min</label>
+          <input type="radio" id="timeChoice2" name="time" value="15" checked>
 
-      <input type="radio" id="timeChoice4" name="time" value="cancel">
-      <label for="timeChoice4">Cancel order</label>
-      <br>
+          <label for="timeChoice3">30 min</label>
+          <input type="radio" id="timeChoice3" name="time" value="30">
 
-      <textarea rows="2" cols="50" placeholder="Enter a short custom message..." name="custommsg"></textarea>
-      <!-- THIS IS WHERE THE DB HAS TO FEED THE USER PHONE NUMBER INTO 'VALUE' -->
-      <input type="hidden" name="userphone" value="4163578459">
-    </div>
-    <div>
-      <button type="submit">Submit</button>
-    </div>
-  </form>
-
+          <label for="timeChoice4">Cancel</label>
+          <input type="radio" id="timeChoice4" name="time" value="cancel">
+          <textarea rows="2" cols="50" placeholder="Enter a short custom message..." name="custommsg"></textarea>
+          <input type="hidden" name="userphone" value="4163578459">
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </section>
+  </main>
+  <% include partials/_footer %>
 </body>
 
 </html>
