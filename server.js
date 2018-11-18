@@ -5,6 +5,7 @@ const ENV = process.env.ENV || 'development';
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
+const path = require('path');
 
 const app = express();
 
@@ -33,10 +34,15 @@ app.use(morgan('dev'));
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views')); // this is the folder where we keep our ejs files
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({ extended: true }));
+// serves up static files from the public folder. Anything in public/ will just be served up as the file it is
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(express.static('public'));
+// Takes the raw requests and turns them into usable properties on req.body
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Mount all resource routes
 app.use('/checkout', checkoutRoutes(knex));

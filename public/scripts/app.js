@@ -19,7 +19,7 @@ $(() => {
     }
   );
 
-  const form = $('.form-wrapper');
+  const form = $('.hideJS');
   const confirmOrder = $('.btn-checkout');
   // Hide form
   form.hide();

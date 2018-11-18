@@ -12,7 +12,7 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = knex => {
-  router.get('/ordertime/:orderID', (req, res) => {
+  router.get('/:orderID', (req, res) => {
     knex
       .select('phone_number')
       .from('order')
@@ -22,13 +22,14 @@ module.exports = knex => {
       })
       .then(phone => {
         knex
-          .select('item_id')
+          .select('item_id', 'quantity')
           .from('orderitem')
           .where('order_id', req.params.orderID)
           .catch(error => {
             console.error(error);
           })
           .then(itemIDs => {
+            console.log('ITEMS IDS:', itemIDs);
             const itemList = [];
             for (let i = 0; i < itemIDs.length; i++) {
               itemList.push(itemIDs[i].item_id);
@@ -42,6 +43,7 @@ module.exports = knex => {
               })
               .then(results => {
                 const templateVars = {
+                  qty: itemIDs,
                   cartItems: results,
                   phoneNumber: phone[0].phone_number,
                   orderID: req.params.orderID,
@@ -52,7 +54,7 @@ module.exports = knex => {
       });
   });
 
-  router.post('/ordertime/:orderID', (req, res) => {
+  router.post('/:orderID', (req, res) => {
     // sends a message to the customer with confirm order and time
     let custMessage;
     if (req.body.time !== 'cancel') {
