@@ -84,12 +84,15 @@ Cart with dynamic pricing changes:
 ![alt text](public/assets/screenshots/cart.png)
 
 Initial SMS to user(customer) and restaurant:
+
 ![alt text](public/assets/screenshots/initialsms.png)
 
 Order page where restaurant can set pickup time and custom message:
+
 ![alt text](public/assets/screenshots/orderandtimeset.png)
 
 Final SMS to user indicating time for pickup:
+
 ![alt text](public/assets/screenshots/timesenttouser.png)
 
 
