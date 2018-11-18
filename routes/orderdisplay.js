@@ -76,7 +76,20 @@ module.exports = knex => {
       .then(message => console.log(message.sid))
       .done();
 
-    res.send('submitted!');
+    res.send(
+      `<html>
+      <body>
+        <center>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <h1>YOU HAVE SUCCESSFULLY INFORMED THE CUSTOMER</h1>
+        <center>
+      </body>
+      </html>`
+    );
   });
   return router;
 };

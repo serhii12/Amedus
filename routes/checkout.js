@@ -80,8 +80,9 @@ module.exports = knex => {
           .then(message => console.log(message.sid))
           .done();
 
+        req.session = null;
         // server sends back the orderID for the thank you for your order message
-        // res.clearCookie();
+        res.redirect('/');
       });
   });
   return router;

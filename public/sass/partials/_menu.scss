@@ -4,6 +4,8 @@
   justify-items: center;
   justify-content: center;	
   &__selection__items {
+    position: sticky;
+    top: 70px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;

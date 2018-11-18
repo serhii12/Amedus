@@ -21,6 +21,12 @@
     width: 500px;
     position: relative;
 
+    .qtyButton {
+      background: transparent;
+      border: none;
+      color: $color__black;
+    }
+
     .myLink {
       position: absolute;
       top: 0;

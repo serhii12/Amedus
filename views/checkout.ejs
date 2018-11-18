@@ -25,13 +25,13 @@
         <p class="menu__item-description">
           <%= dish.description %>
         </p>
-        <button class="minusQty">
+        <button class="minusQty qtyButton">
           <i class="fa fa-minus"></i>
         </button>
         <span class="<%=dish.id %>counter">
           <%= cartQty[dish.id] %>
         </span>
-        <button class="addQty">
+        <button class="addQty qtyButton">
           <i class="fa fa-plus"></i>
         </button>
       </li>
@@ -49,15 +49,15 @@
           <label for="card">Credit Cart</label>
           <div class='card-wrapper'></div>
           <label for="card">Credit number</label>
-          <input type="text" name="number" placeholder="number" required>
+          <input type="text" name="number" placeholder="number" maxlength="25" required>
           <label for="card">First Name</label>
           <input type="text" name="firstname" placeholder="first name" required/>
           <label for="card">Last Name</label>
           <input type="text" name="lastname" placeholder="last name" required/>
           <label for="card">Expiry date</label>
-          <input type="text" name="expiry" placeholder="expiry date" required/>
+          <input type="text" name="expiry" placeholder="expiry date" maxlength="7" required/>
           <label for="card">CVC</label>
-          <input type="text" name="cvc" placeholder="cvc" required/>
+          <input type="text" name="cvc" placeholder="cvc" maxlength="3" required/>
           <input class="button" type="submit" value="Confirm Order →" />
         </form>
       </div>
