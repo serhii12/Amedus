@@ -26,13 +26,23 @@ S...please fill this in ....what you need to do to run it...migration...npm run 
 
 ## Functionality
 
-The user clicks the 'Order Now' button in the center of the page scrolls down to a menu.  User can .  If the form field exceeds 140 characters the counter moves past zero to negative numbers and the counter color changes color to red.
+Main menu page:
+- add an item to cart
+- cart changes dynamically
+- click cart to go to cart page
+
+Cart page:
+- view all items in cart
+- add or reduce quantity of a particular item in cart
+- remove an item from cart
+- proceed to checkout
+- return to menu to add more items
+
+Checkout page: 
 
 
-A succesful tweet submission immediately:
-- publishes the tweet below the form
-- empties the text entry field
-- resets the counter to 140
+
+
 
 ## File Structure
 
@@ -78,25 +88,25 @@ Important folders and files are indicated in the tree diagram below:
 
 
 ## Screenshots
-======
-### Homescreen:
+
+#### Homescreen:
 ![alt text](public/assets/screenshots/mainscreen.png)
 
-### Menu:
+#### Menu:
 ![alt text](public/assets/screenshots/menu.png)
 
-### Cart with dynamic pricing changes:
+#### Cart with dynamic pricing changes:
 ![alt text](public/assets/screenshots/cart.png)
 
-### Initial SMS to user(customer) and restaurant:
+#### Initial SMS to user(customer) and restaurant:
 
 ![alt text](public/assets/screenshots/initialsms.png)
 
-### Order page where restaurant can set pickup time and custom message:
+#### Order page where restaurant can set pickup time and custom message:
 
 ![alt text](public/assets/screenshots/orderandtimeset.png)
 
-### Final SMS to user indicating time for pickup:
+#### Final SMS to user indicating time for pickup:
 
 ![alt text](public/assets/screenshots/timesenttouser.png)
 
