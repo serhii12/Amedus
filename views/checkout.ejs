@@ -38,7 +38,9 @@
       <%}) %>
       <% } %>
       <div class="total-price">
-        <h3>Total Price: 0</h3>
+        <h3>Total Price:
+          <span class="total-js">0</span>
+        </h3>
       </div>
       <button class="btn-checkout">Confirm Order</button>
       <div class="form-wrapper hideJS">
@@ -51,13 +53,13 @@
           <label for="card">Credit number</label>
           <input type="text" name="number" placeholder="number" maxlength="25" required>
           <label for="card">First Name</label>
-          <input type="text" name="firstname" placeholder="first name" required/>
+          <input type="text" name="firstname" placeholder="first name" required />
           <label for="card">Last Name</label>
-          <input type="text" name="lastname" placeholder="last name" required/>
+          <input type="text" name="lastname" placeholder="last name" required />
           <label for="card">Expiry date</label>
-          <input type="text" name="expiry" placeholder="expiry date" maxlength="7" required/>
+          <input type="text" name="expiry" placeholder="expiry date" maxlength="7" required />
           <label for="card">CVC</label>
-          <input type="text" name="cvc" placeholder="cvc" maxlength="3" required/>
+          <input type="text" name="cvc" placeholder="cvc" maxlength="3" required />
           <input class="button" type="submit" value="Confirm Order →" />
         </form>
       </div>

@@ -60,6 +60,12 @@ $(() => {
     checkoutCart.remove();
   });
 
+  const totalPrice = $('.total-js');
+  const allOfMenuPrices = document.querySelectorAll('.menu__item-price');
+  allOfMenuPrices.forEach(element => {
+    totalPrice.text(Number(element.textContent.split('$').join('')));
+  });
+
   function addQty() {
     const itemID = this.parentNode.getAttribute('data-id');
     const price = $('.menu__item-price');
