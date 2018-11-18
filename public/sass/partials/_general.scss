@@ -41,3 +41,19 @@ ul, li {
 a {
   text-decoration: none;
 }
+
+.selectTime {
+  width: 100%;
+  padding: 10px 12px;
+  appearance: none;
+  border: 1px solid black;
+  background-image: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png);
+  background-repeat: no-repeat;
+  background-position: 95% center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+textarea {
+  resize: none;
+}

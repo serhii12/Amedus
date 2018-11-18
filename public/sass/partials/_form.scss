@@ -25,6 +25,8 @@
   }
 
   .form {
+    display: flex;
+    flex-direction: column;
     background: white;
     padding: 2rem;
     & + .form {

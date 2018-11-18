@@ -57,9 +57,9 @@ module.exports = knex => {
   router.post('/:orderID', (req, res) => {
     // sends a message to the customer with confirm order and time
     let custMessage;
-    if (req.body.time !== 'cancel') {
+    if (req.body.timeTillReady !== 'cancel') {
       custMessage = `Thank you 🦄.  Your order will be ready in ${
-        req.body.time
+        req.body.timeTillReady
       } minutes.  ${req.body.custommsg}`;
     } else {
       custMessage = `Sorry 😕.  Your order has been cancelled by the restaurant.  ${
@@ -75,6 +75,8 @@ module.exports = knex => {
       })
       .then(message => console.log(message.sid))
       .done();
+
+    res.send('submitted!');
   });
   return router;
 };

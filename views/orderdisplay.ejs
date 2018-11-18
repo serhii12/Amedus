@@ -36,22 +36,17 @@
       </li>
       <%}) %>
       <div class="form-wrapper">
-        <form action='orderdisplay/ordertime/<%=orderID%>' method="POST">
+        <form class="form" action='/orderdisplay/<%=orderID%>' method="POST">
           <strong>How long until the order is ready:</strong>
-          <label for="timeChoice1">5 min</label>
-          <input type="radio" id="timeChoice1" name="time" value="5">
-
-          <label for="timeChoice2">15 min</label>
-          <input type="radio" id="timeChoice2" name="time" value="15" checked>
-
-          <label for="timeChoice3">30 min</label>
-          <input type="radio" id="timeChoice3" name="time" value="30">
-
-          <label for="timeChoice4">Cancel</label>
-          <input type="radio" id="timeChoice4" name="time" value="cancel">
-          <textarea rows="2" cols="50" placeholder="Enter a short custom message..." name="custommsg"></textarea>
-          <input type="hidden" name="userphone" value="4163578459">
-          <button type="submit">Submit</button>
+          <select class="selectTime" name="timeTillReady">
+            <option name="time" value="5">5 min</option>
+            <option name="time" value="15" selected>15 min</option>
+            <option name="time" value="30">30 min</option>
+            <option name="time" value="cancel">Cancel</option>
+          </select>
+          <textarea maxlenght="50" rows="5" cols="20" placeholder="Enter a short custom message..." name="custommsg"></textarea>
+          <input type="hidden" name="userphone" value="<%=phoneNumber%>">
+          <button class="btn-checkout" type="submit">Submit</button>
         </form>
       </div>
     </section>
