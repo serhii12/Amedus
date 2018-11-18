@@ -67,11 +67,11 @@ module.exports = knex => {
           .create({
             body: `Customer ${req.body.firstname} ${
               req.body.phone
-            } just placed an order.\nPickup is set to 15 minutes\nClick here view order or change time\nhttp://bit.ly/2K926u2/orderdisplay/${
+            } just placed an order.\nPickup is set to 15 minutes\nClick here view order or change time\nhttps://great.ngrok.io/orderdisplay/${
               results[0]
             }`,
             from: '+16474908806',
-            to: '+14163578459',
+            to: '+16472364390',
           })
           .then(message => console.log(message.sid))
           .done();

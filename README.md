@@ -1,5 +1,5 @@
 
-## Amedus-project
+# Amedus-project
 
 Amedus is a simple restaurant app.
 
