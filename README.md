@@ -22,6 +22,8 @@ Users are provided a menu of items to add to a shopping cart.  They may remove i
 
 ## Getting Started
 
+S...please fill this in ....what you need to do to run it...migration...npm run local etc.
+
 ## Functionality
 
 The user clicks the 'Order Now' button in the center of the page scrolls down to a menu.  User can .  If the form field exceeds 140 characters the counter moves past zero to negative numbers and the counter color changes color to red.
@@ -42,17 +44,17 @@ Important folders and files are indicated in the tree diagram below:
   <ul>
     <li>/db</li>
     <ul>
-      <li>/migrations: contains graphics and screenshots</li>
-      <li>/seeds: app.js is main file driving tweet display</li>
+      <li>/migrations: list of previous dB migraitons</li>
+      <li>/seeds: intial data set of menu items and test orders</li>
     </ul>
     <li>/public</li>
     <ul>
       <li>/assets: contains graphics and screenshots</li>
-      <li>/css: app.js is main file driving tweet display </li>
-      <li>/dist: css for nav and main screen </li>
-      <li>/saas: provided...not relevant</li>
-      <li>/scripts: css for nav and main screen </li>
-      <li>/vendor: provided...not relevant</li>
+      <li>/css: styling </li>
+      <li>/dist</li>
+      <li>/saas</li>
+      <li>/scripts</li>
+      <li>/vendor</li>
     </ul>
     <li>/routes</li>
     <ul>
@@ -74,6 +76,9 @@ Important folders and files are indicated in the tree diagram below:
   </ul>
 </ul>
 
+
+## Screenshots
+======
 ### Homescreen:
 ![alt text](public/assets/screenshots/mainscreen.png)
 
