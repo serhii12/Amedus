@@ -41,7 +41,7 @@ SMS: upon confirmation of an order:
 - SMS sent to customer thanking them and telling them a pickup time will be sent
 - SMS sent to restuarant with link to order to view order, set pickup time, cancel order and set an optional custom message
 
-Order and time for pickup page (/orderdisply/uniqueordernumber)...restaurant owner can: 
+Order and time for pickup page (/orderdisplay/uniqueordernumber)...restaurant owner can: 
 - view username, phone number of customer who ordered
 - see all items and total cost of order
 - select 5, 15, 30 minutes OR cancel order
