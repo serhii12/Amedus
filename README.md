@@ -57,7 +57,7 @@ A succesful tweet submission immediately:
 </ul>
 
 Homescreen:
-![alt text](public/assets/screenshots/homepage.png)
+![alt text](public/assets/screenshots/mainscreen.png)
 
 Ready for tweet:
 ![alt text](public/screenshots/readyfortweet.png)
