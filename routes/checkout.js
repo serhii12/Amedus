@@ -24,7 +24,14 @@ module.exports = knex => {
         console.error(error);
       })
       .then(results => {
-        const templateVars = { cartItems: results, cartQty };
+        let total = 0;
+        for (let i = 0; i < results.length; i++) {
+          if (cartQty[results[i].id]) {
+            total += (cartQty[results[i].id] * results[i].price)
+            console.log ("total", total)
+          }
+        }
+        const templateVars = { cartItems: results, cartQty, total};
         res.render('checkout', templateVars);
       });
   });
