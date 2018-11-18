@@ -712,6 +712,7 @@ textarea {
 }
 
 .nav__menu__item__link i {
+  font-size: 2.2rem;
   color: #d9cb94;
 }
 
@@ -854,6 +855,12 @@ textarea {
   padding: 30px;
   width: 500px;
   position: relative;
+}
+
+.wrapper .menu__item .qtyButton {
+  background: transparent;
+  border: none;
+  color: #000;
 }
 
 .wrapper .menu__item .myLink {
