@@ -19,12 +19,11 @@ module.exports = knex => {
         req.session.count = req.session.count || 0;
         req.session.count += 1;
         let total = 0;
-        let cartQty = req.session.cart;
-        for (let i = 0; i < results.length; i++) {
-          if (cartQty[results[i].id]) {
-            total += (cartQty[results[i].id] * results[i].price)
+        results.forEach(function(item) {
+          if (req.session.cart[item.id]) {
+            total += (req.session.cart[item.id] * item.price)
           }
-        }
+        })
         console.log ("total for add item", total)
         res.json({
           unitPrice: results[itemID-1].price,
@@ -50,13 +49,12 @@ module.exports = knex => {
         if (req.session.cart[itemID] === 0) {
           delete req.session.cart[itemID];
         }
-        let total = 0;
-        let cartQty = req.session.cart;
-        for (let i = 0; i < results.length; i++) {
-          if (cartQty[results[i].id]) {
-            total += (cartQty[results[i].id] * results[i].price)
+         let total = 0;
+        results.forEach(function(item) {
+          if (req.session.cart[item.id]) {
+            total += (req.session.cart[item.id] * item.price)
           }
-        }
+        })
         console.log ("total for remove item", total)
         res.json({
           unitPrice: results[0].price,
@@ -80,12 +78,11 @@ module.exports = knex => {
        req.session.count -= req.session.cart[itemID];
         delete req.session.cart[itemID];
         let total = 0;
-        let cartQty = req.session.cart;
-        for (let i = 0; i < results.length; i++) {
-          if (cartQty[results[i].id]) {
-            total += (cartQty[results[i].id] * results[i].price)
+        results.forEach(function(item) {
+          if (req.session.cart[item.id]) {
+            total += (req.session.cart[item.id] * item.price)
           }
-        }
+        })
         console.log ("total for remove removeElement", total)
         res.json({ count: req.session.count, total });
       });
